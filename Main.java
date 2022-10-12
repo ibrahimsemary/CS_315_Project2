@@ -4,16 +4,22 @@ import javax.swing.*;
 import java.awt.event.*;
 // Compile: javac *.java
 // Run: java -cp ".;postgresql-42.2.8.jar" Main
-// 
-
-/*
-@author pranav krishnan
-
-*/ 
 
 public class Main {
 
     static JFrame frame;
+    
+    static void processTransaction(double cost, int[] items) throws SQLException{
+        
+        ResultSet res = Database.executeQuery("SELECT MAX(transactionid) FROM transactions");
+        System.out.println(res);
+        // INSERT INTO transactions VALUES (id, curDate, cost)
+        for(int itemid : items){
+            // INSERT INTO transactionsitems (t_id, itemid)
+        }
+
+    }
+
     public static void main(String args[]) {
         try {
             Database.connect();
@@ -39,6 +45,9 @@ public class Main {
             frame.add(new topPanel(), BorderLayout.NORTH);
             // frame.pack();
             frame.setVisible(true);
+
+            int[] a = {};
+            processTransaction(10,a);
 
         }
         catch(SQLException e) {

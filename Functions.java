@@ -7,7 +7,7 @@ import java.awt.event.*;
 
 public class Functions{
 
-        /**
+    /**
      * @param cost              cost of the transaction
      * @param items             list of itemid for items purchased
      * @throws SQLException

@@ -15,7 +15,7 @@ public class Main{
         int t_id = Integer.parseInt(res.getString("max")) +1;
         Database.executeUpdate("INSERT INTO test_transaction VALUES (" + t_id +", CURRENT_DATE, " + cost + ");");
         for(int itemid : items){
-            Database.executeUpdate("INSERT INTO transactionitems_test VALUES ("+t_id+", "+itemid+");");
+            //Database.executeUpdate("INSERT INTO transactionitems_test VALUES ("+t_id+", "+itemid+");");
         }
 
     }
@@ -50,8 +50,9 @@ public class Main{
         int[] a = {1,2};
         try{
             Database.connect();
-            System.out.println(login("miketyson", "password"));
-            System.out.println(login("ibrahim", "haram"));
+            // password test
+            // System.out.println(login("miketyson", "password"));
+            // System.out.println(login("ibrahim", "haram"));
 
             Database.disconnect();
         } catch(SQLException e){

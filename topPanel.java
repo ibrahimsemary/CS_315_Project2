@@ -4,9 +4,9 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
-public class topPanel extends JPanel{
+public class TopPanel extends JPanel{
 
-    topPanel() { 
+    TopPanel() { 
         FlowLayout fl = new FlowLayout();
         fl.setHgap(300);   
         setLayout(fl);
@@ -14,19 +14,7 @@ public class topPanel extends JPanel{
         JButton home = new JButton("Home");
         JButton manager = new JButton("Manager Mode");
         home.setPreferredSize(new Dimension(200, 50));
-        home.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //function to open default window
-            }
-        });
-        
         manager.setPreferredSize(new Dimension(200, 50));
-        manager.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //function to open manager window
-            }
-        });
-
         add(home);
         add(manager);
     }

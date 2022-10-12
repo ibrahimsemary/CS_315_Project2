@@ -23,19 +23,23 @@ public class ItemPanel extends JPanel{
                     // Main.arrayname.add(id);
                     // Add to transaction
                     // go back
+                    Main.cardlayout.show(Main.cards, "centralPanel");
                 }
             });
             add(jb);
         }
 
-        name = "back";
+        name = "GO BACK";
         JButton jb = new JButton(name);
         jb.setPreferredSize(new Dimension(200, 100));
+        jb.setBackground(Color.RED);
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 //go back
+                Main.cardlayout.show(Main.cards, "centralPanel");
             }
         });
+        add(jb);
         revalidate();
     }
 

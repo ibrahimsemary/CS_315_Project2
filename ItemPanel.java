@@ -14,12 +14,14 @@ public class ItemPanel extends JPanel{
         String name, id;
         while (rs.next()) {
             name = rs.getString("name");
+            id = rs.getString("id");
             JButton jb = new JButton(name);
             jb.setPreferredSize(new Dimension(200, 100));
             jb.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     // add to transaction
-
+                    // Main.arrayname.add(id);
+                    // Add to transaction
                     // go back
                 }
             });

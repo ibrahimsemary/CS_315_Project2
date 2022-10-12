@@ -94,6 +94,37 @@ public class Main{
         return items;
     }
 
+    public static ArrayList<Triplet<Integer, String, Double>>getEntrees() throws SQLException{
+       
+        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
+        ResultSet res = Database.executeQuery("SELECT * FROM items where type = 'entree';");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("id"));
+            String tempName = res.getString("name");
+            Double tempCost = Double.parseDouble(res.getString("cost"));
+            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
+
+    public static ArrayList<Triplet<Integer, String, Double>>getSides() throws SQLException{
+       
+        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
+        ResultSet res = Database.executeQuery("SELECT * FROM items where type = 'side';");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("id"));
+            String tempName = res.getString("name");
+            Double tempCost = Double.parseDouble(res.getString("cost"));
+            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
+    
+
 
     public static void main(String[] args){
 
@@ -103,7 +134,7 @@ public class Main{
             // password test
             // System.out.println(login("miketyson", "password"));
             // System.out.println(login("ibrahim", "haram"));
-            
+
 
             System.out.println(getItems());
             Database.disconnect();

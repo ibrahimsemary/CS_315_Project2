@@ -16,12 +16,14 @@ public class Main {
     static ItemPanel entreePanel;
     static ItemPanel sidesPanel;
     static ItemPanel extrasPanel;
-
+    static CardLayout cardlayout;
+    static JPanel cards;
     public static void main(String args[]) {
         try {
             Database.connect();
             frame = new JFrame();
-            
+            cardlayout = new CardLayout();
+            cards = new JPanel(cardlayout);
             frame.setTitle("Panda Express");
             frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -44,17 +46,31 @@ public class Main {
             entreePanel = new ItemPanel("entree");
             sidesPanel = new ItemPanel("side");
             extrasPanel = new ItemPanel("extra");
+
+           // cards.add(transactionPanel, "transactionPanel");
+            cards.add(centralPanel, "centralPanel");
+            //cards.add(topPanel, "topPanel");
+            cards.add(entreePanel, "entreePanel");
+            cards.add(sidesPanel, "sidesPanel");
+            cards.add(extrasPanel, "extrasPanel");
+
             frame.add(transactionPanel, BorderLayout.EAST);
             frame.add(checkoutPanel, BorderLayout.SOUTH);
             frame.add(topPanel, BorderLayout.NORTH);
-            // frame.add(entreePanel, BorderLayout.CENTER);
-            // frame.add(drinksPanel, BorderLayout.CENTER);
+            //frame.add(entreePanel, BorderLayout.CENTER);
             // frame.add(sidesPanel, BorderLayout.CENTER);
             // frame.add(extrasPanel, BorderLayout.CENTER);
-            frame.add(centralPanel, BorderLayout.CENTER);
+            //frame.add(centralPanel, BorderLayout.CENTER);
+
+            frame.add(cards, BorderLayout.CENTER);
+            cardlayout.show(cards, "transactionPanel");
             frame.setVisible(true);
-        //     try {TimeUnit.SECONDS.sleep(10);}
-        // catch(InterruptedException e) {System.out.println("sd");}
+        //     entreePanel.setVisible(false);
+        //      try {TimeUnit.SECONDS.sleep(10);}
+        //  catch(InterruptedException e) {System.out.println("sd");}
+        //  centralPanel.setVisible(false);
+        //  entreePanel.setVisible(true);
+        //  entreePanel.revalidate();
         // c.setVisible(false);
             // frame.pack();
 

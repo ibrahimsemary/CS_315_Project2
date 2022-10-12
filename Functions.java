@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.awt.*;
+import java.util.ArrayList; // import the ArrayList class
 
 import javax.print.DocFlavor.STRING;
 import javax.swing.*;
@@ -60,5 +61,76 @@ public class Functions{
         }
         return false;
     }
+
+    public static class Triplet<T1,T2,T3> {
+        public T1 first;
+        public T2 second;
+        public T3 third;
+
+        public Triplet(T1 t1, T2 t2, T3 t3){
+            this.first = t1;
+            this.second = t2;
+            this.third = t3;
+        }
+    }
+
+    /**
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<Triplet<Integer, String, Double>>getItems() throws SQLException{
+       
+        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
+        ResultSet res = Database.executeQuery("SELECT * FROM items;");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("id"));
+            String tempName = res.getString("name");
+            Double tempCost = Double.parseDouble(res.getString("cost"));
+            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
+
+    /**
+     * 
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<Triplet<Integer, String, Double>>getEntrees() throws SQLException{
+       
+        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
+        ResultSet res = Database.executeQuery("SELECT * FROM items where type = 'entree';");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("id"));
+            String tempName = res.getString("name");
+            Double tempCost = Double.parseDouble(res.getString("cost"));
+            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
+    /**
+     * 
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<Triplet<Integer, String, Double>>getSides() throws SQLException{
+       
+        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
+        ResultSet res = Database.executeQuery("SELECT * FROM items where type = 'side';");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("id"));
+            String tempName = res.getString("name");
+            Double tempCost = Double.parseDouble(res.getString("cost"));
+            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
+    
 
 }

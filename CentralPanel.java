@@ -29,8 +29,7 @@ public class CentralPanel extends JPanel{
         entree.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
                 try {
-                    setVisible(false);
-                    Main.entreePanel.setVisible(true);
+                    Main.cardlayout.show(Main.cards, "entreePanel");
                 }
                 catch(Exception x) {
                 System.out.println(x.getMessage());
@@ -38,6 +37,28 @@ public class CentralPanel extends JPanel{
             } 
             } );
 
+            sides.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                try {
+                    Main.cardlayout.show(Main.cards, "sidesPanel");
+                }
+                catch(Exception x) {
+                System.out.println(x.getMessage());
+                }
+            } 
+            } );
+        
+            extras.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                try {
+                    Main.cardlayout.show(Main.cards, "extrasPanel");
+                }
+                catch(Exception x) {
+                System.out.println(x.getMessage());
+                }
+            } 
+            } );
+        
     }
 
 

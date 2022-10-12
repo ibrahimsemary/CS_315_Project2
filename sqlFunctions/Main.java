@@ -123,6 +123,22 @@ public class Main{
         }
         return items;
     }
+
+    public static ArrayList<Triplet<Integer, String, Integer>>getInventory() throws SQLException{
+       
+        ArrayList<Triplet<Integer, String, Integer>> items = new ArrayList<Triplet<Integer, String, Integer>>();
+        ResultSet res = Database.executeQuery("SELECT * FROM inventory;");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("itemid"));
+            String tempName = res.getString("itemname");
+            Integer tempCost = Integer.parseInt(res.getString("totalquantity"));
+            Triplet<Integer, String, Integer> temp = new Triplet<Integer,String,Integer>(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
+    
     
 
 
@@ -134,9 +150,10 @@ public class Main{
             // password test
             // System.out.println(login("miketyson", "password"));
             // System.out.println(login("ibrahim", "haram"));
+            for(Triplet<Integer,String,Integer> trip: getInventory()){
+                System.out.println(trip.second);
+            }
 
-
-            System.out.println(getItems());
             Database.disconnect();
         } catch(SQLException e){
             System.out.println(e.getMessage());

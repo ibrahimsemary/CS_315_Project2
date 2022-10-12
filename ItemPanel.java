@@ -32,7 +32,7 @@ public class ItemPanel extends JPanel{
         name = "GO BACK";
         JButton jb = new JButton(name);
         jb.setPreferredSize(new Dimension(200, 100));
-        jb.setBackground(Color.RED);
+        jb.setBackground(Color.GRAY);
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 //go back

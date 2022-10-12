@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.event.*;
 // Compile: javac *.java
 // Run: java -cp ".;postgresql-42.2.8.jar" Main
+// 
+
+/*
+@author pranav krishnan
+
+*/ 
 
 public class Main {
 

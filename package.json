@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "javadoc": "^2.0.0",
+    "psql": "^0.0.1"
+  }
+}

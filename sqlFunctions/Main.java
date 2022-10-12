@@ -4,9 +4,24 @@ import java.awt.*;
 import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList; // import the ArrayList class
+import java.util.*;
 
 
 public class Main{
+
+    public static class Triplet<T1,T2,T3> {
+        public T1 first;
+        public T2 second;
+        public T3 third;
+
+        public Triplet(T1 t1, T2 t2, T3 t3){
+            this.first = t1;
+            this.second = t2;
+            this.third = t3;
+        }
+    }
+
     /**
      * @param cost
      * @param items
@@ -45,7 +60,7 @@ public class Main{
      * @return boolean
      * @throws SQLException
      */
-    static boolean login(String username, String password) throws SQLException{
+    public static boolean login(String username, String password) throws SQLException{
         ResultSet res = Database.executeQuery("SELECT * FROM USERS;");
         res.next();
         while(res.next()){
@@ -60,6 +75,24 @@ public class Main{
         }
         return false;
     }
+    
+    /*
+     * function in order to get all the items in the DB (entrees, sides, add-ons)
+     */
+    public static ArrayList<Triplet<Integer, String, Double>>getItems() throws SQLException{
+       
+        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
+        ResultSet res = Database.executeQuery("SELECT * FROM items;");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("id"));
+            String tempName = res.getString("name");
+            Double tempCost = Double.parseDouble(res.getString("cost"));
+            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
 
 
     public static void main(String[] args){
@@ -70,8 +103,9 @@ public class Main{
             // password test
             // System.out.println(login("miketyson", "password"));
             // System.out.println(login("ibrahim", "haram"));
+            
 
-
+            System.out.println(getItems());
             Database.disconnect();
         } catch(SQLException e){
             System.out.println(e.getMessage());

@@ -7,7 +7,11 @@ import java.awt.event.*;
 
 
 public class Main{
-
+    /**
+     * @param cost
+     * @param items
+     * @throws SQLException
+     */
     static void processTransaction(double cost, int[] items) throws SQLException{
         
         ResultSet res = Database.executeQuery("SELECT MAX(transactionid) FROM test_transaction;");
@@ -19,6 +23,13 @@ public class Main{
         }
 
     }
+
+    /**
+     * @param itemId
+     * @param expiryDate
+     * @param Quantity
+     * @throws SQLException
+     */
     //expiry date should probably be changed to the date orderde or something
     static void processBatches(int itemId, String expiryDate, int Quantity)throws SQLException{
         //get the max batch id and add one to it - this is going to be the new primary key
@@ -28,7 +39,12 @@ public class Main{
         int batchId = Integer.parseInt(res.getString("max")) + 1;
         //Database.executeUpdate("INSERT INTO batch VALUES(" + batchId + "," + itemId + "," + expiryDate + "," + Quantity + ");");
     }
-
+    /**
+     * @param username
+     * @param password
+     * @return boolean
+     * @throws SQLException
+     */
     static boolean login(String username, String password) throws SQLException{
         ResultSet res = Database.executeQuery("SELECT * FROM USERS;");
         res.next();
@@ -43,8 +59,9 @@ public class Main{
             res.next();
         }
         return false;
-
     }
+
+
     public static void main(String[] args){
 
         int[] a = {1,2};
@@ -53,6 +70,7 @@ public class Main{
             // password test
             // System.out.println(login("miketyson", "password"));
             // System.out.println(login("ibrahim", "haram"));
+
 
             Database.disconnect();
         } catch(SQLException e){

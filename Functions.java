@@ -247,11 +247,11 @@ public class Functions{
         //get num of entrees
         double to_return = 0;
         for(Item item: items){
-            if(item.type == "entree" && num_entrees > 0){
+            if(item.type.equals("entree") && num_entrees > 0){
                 to_return -= item.cost;
                 num_entrees--;
             }
-            else if(item.type == "side" && num_sides > 0){
+            else if(item.type.equals("side") && num_sides > 0){
                 to_return -= item.cost;
                 num_sides--;
             }

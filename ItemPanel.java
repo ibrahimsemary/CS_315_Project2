@@ -21,14 +21,24 @@ public class ItemPanel extends JPanel{
                     // Main.arrayname.add(id);
                     // Add to transaction
                     // go back
-                    if(item == "combo") {
-
+                    if(item.equals("combo")) {
+                        double temp = Functions.processCombo(my_item.name, Main.transactionPanel.itemIds, Main.transactionPanel.cost);
+                        System.out.println(temp);
+                        System.out.println(my_item.name);
+                        if (temp == -1) {
+                            //popup box
+                            return;
+                        }
+                        Main.transactionPanel.cost = temp;
+                    } else {
+                        Main.transactionPanel.cost += my_item.cost;
                     }
                     Main.transactionPanel.display(my_item.name);
-                    Main.transactionPanel.cost += my_item.cost;
                     Main.transactionPanel.itemIds.add(my_item);
                     Main.cardlayout.show(Main.cards, "centralPanel");
                     Main.transactionPanel.remove(TransactionPane.totalCost);
+                    Main.transactionPanel.totalCost.setText(String.format("Total: $%.2f", Main.transactionPanel.cost));
+
                     Main.transactionPanel.add(TransactionPane.totalCost);
                 }
             });

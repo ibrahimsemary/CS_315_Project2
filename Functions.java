@@ -183,6 +183,11 @@ public class Functions{
         }
         return items;
     }
+
+    public static double processCombo(String combo_name, ArrayList<String> items){
+        
+        return 2.0;
+    }
     
 
 }

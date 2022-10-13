@@ -7,13 +7,13 @@ import javax.swing.border.LineBorder;
 import java.awt.event.*;
 
 public class TransactionPane extends JPanel{
-    public ArrayList<String> itemIds;
+    public static ArrayList<Functions.Item> itemIds;
     public double cost;
     public static JLabel totalCost;
 
     TransactionPane() {
         // implicit call to super()
-        itemIds = new ArrayList<>();
+        itemIds = new ArrayList<Functions.Item>();
         cost = 0.0;
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -36,9 +36,10 @@ public class TransactionPane extends JPanel{
 
     public static void clear() {
         TransactionPane newPane = new TransactionPane();
-        Main.frame.remove(Main.transactionPanel);
+        Main.serverFrame.remove(Main.transactionPanel);
         Main.transactionPanel = newPane;
-        Main.frame.add(newPane, BorderLayout.EAST);
-        Main.frame.revalidate();
+        Main.serverFrame.add(newPane, BorderLayout.EAST);
+        Main.serverFrame.revalidate();
+        itemIds.clear();
     }
 }

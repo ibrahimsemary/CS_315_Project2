@@ -18,7 +18,7 @@ public class TopPanel extends JPanel{
         manager.setPreferredSize(new Dimension(200, 50));
         manager.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    
+                    Main.serverFrame.setVisible(false);
                 }
         });
 

@@ -4,23 +4,16 @@ import javax.swing.border.LineBorder;
 import java.awt.event.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.function.Function;
 
 public class ItemPanel extends JPanel{
     
     ItemPanel(String item) throws SQLException{
         setVisible(false);
-        String sql = "SELECT * FROM ITEMS WHERE type = '" + item + "';";
-        
-        ResultSet rs = Database.executeQuery(sql);
-        String name, id, cost;
-        while (rs.next()) {
-            name = rs.getString("name");
-            id = rs.getString("id");
-            cost = rs.getString("cost");
-            final String innername = name;
-            final String innerid = id;
-            final String innercost = cost;
-            JButton jb = new JButton(name);
+        ArrayList<Functions.Item> items = Functions.getItems();
+        for(Functions.Item my_item: items){
+            if (!my_item.type.equals(item)) continue;
+            JButton jb = new JButton(my_item.name);
             jb.setPreferredSize(new Dimension(200, 100));
             jb.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
@@ -28,17 +21,21 @@ public class ItemPanel extends JPanel{
                     // Main.arrayname.add(id);
                     // Add to transaction
                     // go back
-                    Main.transactionPanel.display(innername);
-                    Main.transactionPanel.cost += Double.parseDouble(innercost);
-                    Main.transactionPanel.itemIds.add(innerid);
+                    if(item == "combo") {
+
+                    }
+                    Main.transactionPanel.display(my_item.name);
+                    Main.transactionPanel.cost += my_item.cost;
+                    Main.transactionPanel.itemIds.add(my_item);
                     Main.cardlayout.show(Main.cards, "centralPanel");
+                    Main.transactionPanel.remove(TransactionPane.totalCost);
+                    Main.transactionPanel.add(TransactionPane.totalCost);
                 }
             });
             add(jb);
         }
 
-        name = "GO BACK";
-        JButton jb = new JButton(name);
+        JButton jb = new JButton("GO BACK");
         jb.setPreferredSize(new Dimension(200, 100));
         jb.setBackground(Color.GRAY);
         jb.addActionListener(new ActionListener(){

@@ -19,8 +19,13 @@ public class Functions{
         res.next();
         int t_id = Integer.parseInt(res.getString("max")) +1;
         Database.executeUpdate("INSERT INTO transactions VALUES (" + t_id +", CURRENT_DATE, " + cost + ");");
+        ResultSet res1 = Database.executeQuery("SELECT MAX(indexid) FROM transactionitems;");
+        res1.next();
+        int i_id = Integer.parseInt(res1.getString("max")) +1;
+
         for(Item item : items){
-            Database.executeUpdate("INSERT INTO transactionitems VALUES ("+t_id+", "+item.id+");");
+            Database.executeUpdate("INSERT INTO transactionitems VALUES ("+i_id+", "+t_id+", "+item.id+");");
+            i_id ++;
         }
 
     }

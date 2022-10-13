@@ -132,7 +132,6 @@ public class Functions{
      * @throws SQLException
      */
     public static ArrayList<InventoryItem>getInventoryItems() throws SQLException{
-       
         ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
         ResultSet res = Database.executeQuery("SELECT itemid, itemname, totalquantity FROM inventory;");
         res.next();

@@ -8,7 +8,8 @@ import java.awt.event.*;
 
 public class TransactionPane extends JPanel{
     public ArrayList<String> itemIds;
-    public static double cost;
+    public double cost;
+    public static JLabel totalCost;
 
     TransactionPane() {
         // implicit call to super()
@@ -19,12 +20,16 @@ public class TransactionPane extends JPanel{
         JLabel title = new JLabel("Checkout");
         title.setFont(new Font(title.getFont().getName(), title.getFont().getStyle(), 50));
         title.setBorder(new LineBorder(Color.BLACK));
-        add(title);
         
+        totalCost = new JLabel("Total: ");
+        totalCost.setFont(new Font(title.getFont().getName(), title.getFont().getStyle(), 20));
+
+        add(totalCost);
+        add(title, 0);
     }
 
-    public void display(String name, String cost) {
-        JLabel itemDisplay = new JLabel(name + "     $" + cost);
+    public void display(String name) {
+        JLabel itemDisplay = new JLabel(name);
         itemDisplay.setFont(new Font(itemDisplay.getFont().getName(), itemDisplay.getFont().getStyle(), 15));
         add(itemDisplay);
     }

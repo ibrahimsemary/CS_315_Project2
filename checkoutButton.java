@@ -12,6 +12,11 @@ public class checkoutButton extends JPanel{
         JButton checkout = new JButton("Checkout");        
         checkout.setPreferredSize(new Dimension(100, 50));
         checkout.setBackground(Color.GREEN);
+        checkout.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
 
         JButton clear = new JButton("CLEAR");
         clear.setPreferredSize(new Dimension(100,50));

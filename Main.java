@@ -19,7 +19,12 @@ public class Main {
     static CardLayout cardlayout;
     static JPanel cards;
     static CostLabel cLabel;
+
     public static void main(String args[]) {
+        makeServer();
+    }
+
+    public static void makeServer() {
         try {
             Database.connect();
             frame = new JFrame();

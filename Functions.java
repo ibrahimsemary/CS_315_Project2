@@ -74,20 +74,64 @@ public class Functions{
         }
     }
 
+    public static class Item{
+        public int id;
+        public String name;
+        public double cost;
+
+        public Item(int id, String name, double cost){
+            this.id = id;
+            this.name = name;
+            this.cost = cost;
+        }
+    }
+
+    public static class InventoryItem{
+        public int id;
+        public String name;
+        public int quantity;
+
+        public InventoryItem(int id, String name, int quantity){
+            this.id = id;
+            this.name = name;
+            this.quantity = quantity;
+        }
+    }
+
     /**
      * @return
      * @throws SQLException
      */
-    public static ArrayList<Triplet<Integer, String, Double>>getItems() throws SQLException{
+    public static ArrayList<Item>getItems() throws SQLException{
        
-        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
-        ResultSet res = Database.executeQuery("SELECT * FROM items;");
+        ArrayList<Item> items = new ArrayList<Item>();
+        ResultSet res = Database.executeQuery("SELECT id,name,cost FROM items;");
         res.next();
         while(res.next()){
             Integer tempID= Integer.parseInt(res.getString("id"));
             String tempName = res.getString("name");
             Double tempCost = Double.parseDouble(res.getString("cost"));
-            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
+            Item temp = new Item(tempID, tempName, tempCost);
+            items.add(temp);
+        }
+        return items;
+    }
+
+    /**
+     * 
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<InventoryItem>getInventoryItems() throws SQLException{
+       
+        ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
+        ResultSet res = Database.executeQuery("SELECT itemid, itemname, totalquantity FROM inventory;");
+        res.next();
+        while(res.next()){
+            Integer tempID= Integer.parseInt(res.getString("itemid"));
+            String tempName = res.getString("itemname");
+            int tempQuantity = Integer.parseInt(res.getString("totalquantity"));
+            InventoryItem temp = new InventoryItem(tempID, tempName, tempQuantity);
             items.add(temp);
         }
         return items;

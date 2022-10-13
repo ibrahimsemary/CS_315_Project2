@@ -184,9 +184,82 @@ public class Functions{
         return items;
     }
 
-    public static double processCombo(String combo_name, ArrayList<String> items){
-        
-        return 2.0;
+    public static double processCombo(String combo_name, ArrayList<Item> items, double totalCost){
+        int entrees = 0;
+        int sides = 0;
+        //get num of everything
+        for(Item item: items){
+            if(item.type.equals("entree")){
+                entrees += 1;
+            }
+            else if(item.type.equals("side")){
+                sides += 1;
+            }
+            else if(item.name.equals("bowl")){
+                entrees -= 1;
+                sides -=1 ;
+            }
+            else if(item.name.equals("plate")){
+                entrees -= 2;
+                sides -=1 ;
+            }
+            else if(item.name.equals("biggerplate")){
+                entrees -= 3;
+                sides -=1 ;
+            }
+        }
+        //get cost of all entrees and one side subtract it + then add cost of bowl + add to bowl
+        if(combo_name == "bowl"){
+            if(entrees >= 1 && sides >= 1){
+                totalCost += 7.50;
+                totalCost -= comboHelper(1, 1, items);
+
+            }
+            else{
+                return -1;
+            }
+        }
+        else if(combo_name == "plate"){
+            if(entrees >= 2 && sides >= 1){
+                //do stuff
+                totalCost += 9.00;
+                totalCost -= comboHelper(2, 1, items);
+            }
+            else{
+                return -1;
+            }
+        }
+        else if(combo_name == "biggerplate"){
+            if(entrees >= 3 && sides >= 1){
+                //do stuff
+                totalCost += 10.50;
+                totalCost -= comboHelper(3, 1, items);
+
+            }
+            else{
+                return -1;
+            }
+        }
+        return totalCost;
+    }
+
+    public static double comboHelper(int num_entrees, int num_sides, ArrayList<Item> items){
+        //get num of entrees
+        double to_return = 0;
+        for(Item item: items){
+            if(item.type == "entree" && num_entrees > 0){
+                to_return -= item.cost;
+                num_entrees--;
+            }
+            else if(item.type == "side" && num_sides > 0){
+                to_return -= item.cost;
+                num_sides--;
+            }
+            if(num_sides == 0 && num_entrees == 0){
+                break;
+            }
+        }
+        return to_return;
     }
     
 

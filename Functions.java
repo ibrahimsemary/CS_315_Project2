@@ -113,13 +113,14 @@ public class Functions{
     public static ArrayList<Item>getItems() throws SQLException{
        
         ArrayList<Item> items = new ArrayList<Item>();
-        ResultSet res = Database.executeQuery("SELECT id,name,cost FROM items;");
+        ResultSet res = Database.executeQuery("SELECT id,name,cost,type FROM items;");
         res.next();
         while(res.next()){
             Integer tempID= Integer.parseInt(res.getString("id"));
             String tempName = res.getString("name");
             Double tempCost = Double.parseDouble(res.getString("cost"));
-            Item temp = new Item(tempID, tempName, tempCost);
+            String type = res.getString("cost");
+            Item temp = new Item(tempID, tempName, tempCost, type);
             items.add(temp);
         }
         return items;
@@ -131,7 +132,6 @@ public class Functions{
      * @throws SQLException
      */
     public static ArrayList<InventoryItem>getInventoryItems() throws SQLException{
-       
         ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
         ResultSet res = Database.executeQuery("SELECT itemid, itemname, totalquantity FROM inventory;");
         res.next();

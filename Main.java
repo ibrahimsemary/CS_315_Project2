@@ -18,6 +18,7 @@ public class Main {
     static ItemPanel extrasPanel;
     static CardLayout cardlayout;
     static JPanel cards;
+    static CostLabel cLabel;
     public static void main(String args[]) {
         try {
             Database.connect();
@@ -46,7 +47,7 @@ public class Main {
             entreePanel = new ItemPanel("entree");
             sidesPanel = new ItemPanel("side");
             extrasPanel = new ItemPanel("extra");
-
+            cLabel = new CostLabel(0); 
            // cards.add(transactionPanel, "transactionPanel");
             cards.add(centralPanel, "centralPanel");
             //cards.add(topPanel, "topPanel");

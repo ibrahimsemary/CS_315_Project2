@@ -1,9 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
 import java.awt.event.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ItemPanel extends JPanel{
     
@@ -17,6 +17,7 @@ public class ItemPanel extends JPanel{
             id = rs.getString("id");
             cost = rs.getString("cost");
             final String innername = name;
+            final String innerid = id;
             final String innercost = cost;
             JButton jb = new JButton(name);
             jb.setPreferredSize(new Dimension(200, 100));
@@ -26,8 +27,8 @@ public class ItemPanel extends JPanel{
                     // Main.arrayname.add(id);
                     // Add to transaction
                     // go back
-                    
                     Main.transactionPanel.display(innername, innercost);
+                    Main.transactionPanel.itemIds.add(innerid);
                     Main.cardlayout.show(Main.cards, "centralPanel");
                 }
             });

@@ -14,7 +14,14 @@ public class TopPanel extends JPanel{
         JButton home = new JButton("Home");
         JButton manager = new JButton("Manager Mode");
         home.setPreferredSize(new Dimension(200, 50));
+
         manager.setPreferredSize(new Dimension(200, 50));
+        manager.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    
+                }
+        });
+
         add(home);
         add(manager);
     }

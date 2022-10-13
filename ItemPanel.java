@@ -22,12 +22,14 @@ public class ItemPanel extends JPanel{
                     // Add to transaction
                     // go back
                     if(item == "combo") {
-                        
+
                     }
                     Main.transactionPanel.display(my_item.name);
                     Main.transactionPanel.cost += my_item.cost;
                     Main.transactionPanel.itemIds.add(my_item);
                     Main.cardlayout.show(Main.cards, "centralPanel");
+                    Main.transactionPanel.remove(TransactionPane.totalCost);
+                    Main.transactionPanel.add(TransactionPane.totalCost);
                 }
             });
             add(jb);

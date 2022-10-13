@@ -119,7 +119,7 @@ public class Functions{
             Integer tempID= Integer.parseInt(res.getString("id"));
             String tempName = res.getString("name");
             Double tempCost = Double.parseDouble(res.getString("cost"));
-            String type = res.getString("cost");
+            String type = res.getString("type");
             Item temp = new Item(tempID, tempName, tempCost, type);
             items.add(temp);
         }

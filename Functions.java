@@ -203,7 +203,7 @@ public class Functions{
                 entrees -= 2;
                 sides -=1 ;
             }
-            else if(item.name.equals("biggerplate")){
+            else if(item.name.equals("bigger plate")){
                 entrees -= 3;
                 sides -=1 ;
             }

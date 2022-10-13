@@ -78,11 +78,19 @@ public class Functions{
         public int id;
         public String name;
         public double cost;
+        public String type;
 
         public Item(int id, String name, double cost){
             this.id = id;
             this.name = name;
             this.cost = cost;
+        }
+
+        public Item(int id, String name, double cost, String type){
+            this.id = id;
+            this.name = name;
+            this.cost = cost;
+            this.type = type;
         }
     }
 

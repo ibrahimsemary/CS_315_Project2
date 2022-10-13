@@ -10,6 +10,7 @@ public class ItemPanel extends JPanel{
     ItemPanel(String item) throws SQLException{
         setVisible(false);
         String sql = "SELECT * FROM ITEMS WHERE type = '" + item + "';";
+        
         ResultSet rs = Database.executeQuery(sql);
         String name, id, cost;
         while (rs.next()) {
@@ -27,7 +28,8 @@ public class ItemPanel extends JPanel{
                     // Main.arrayname.add(id);
                     // Add to transaction
                     // go back
-                    Main.transactionPanel.display(innername, innercost);
+                    Main.transactionPanel.display(innername);
+                    Main.transactionPanel.cost += Double.parseDouble(innercost);
                     Main.transactionPanel.itemIds.add(innerid);
                     Main.cardlayout.show(Main.cards, "centralPanel");
                 }

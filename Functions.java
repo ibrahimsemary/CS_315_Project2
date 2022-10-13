@@ -248,11 +248,11 @@ public class Functions{
         double to_return = 0;
         for(Item item: items){
             if(item.type.equals("entree") && num_entrees > 0){
-                to_return -= item.cost;
+                to_return += item.cost;
                 num_entrees--;
             }
             else if(item.type.equals("side") && num_sides > 0){
-                to_return -= item.cost;
+                to_return += item.cost;
                 num_sides--;
             }
             if(num_sides == 0 && num_entrees == 0){

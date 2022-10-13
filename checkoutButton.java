@@ -2,6 +2,8 @@ import javax.swing.JPanel;
 
 import java.sql.*;
 import java.awt.*;
+import java.awt.event.*;
+
 import javax.swing.*;
 public class checkoutButton extends JPanel{
     
@@ -14,6 +16,11 @@ public class checkoutButton extends JPanel{
         JButton clear = new JButton("CLEAR");
         clear.setPreferredSize(new Dimension(100,50));
         clear.setBackground(Color.RED);
+        clear.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                TransactionPane.clear();
+            }
+        });
 
         add(clear);
         add(checkout);

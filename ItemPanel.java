@@ -11,10 +11,13 @@ public class ItemPanel extends JPanel{
         setVisible(false);
         String sql = "SELECT * FROM ITEMS WHERE type = '" + item + "';";
         ResultSet rs = Database.executeQuery(sql);
-        String name, id;
+        String name, id, cost;
         while (rs.next()) {
             name = rs.getString("name");
             id = rs.getString("id");
+            cost = rs.getString("cost");
+            final String innername = name;
+            final String innercost = cost;
             JButton jb = new JButton(name);
             jb.setPreferredSize(new Dimension(200, 100));
             jb.addActionListener(new ActionListener(){
@@ -23,19 +26,25 @@ public class ItemPanel extends JPanel{
                     // Main.arrayname.add(id);
                     // Add to transaction
                     // go back
+                    
+                    Main.transactionPanel.display(innername, innercost);
+                    Main.cardlayout.show(Main.cards, "centralPanel");
                 }
             });
             add(jb);
         }
 
-        name = "back";
+        name = "GO BACK";
         JButton jb = new JButton(name);
         jb.setPreferredSize(new Dimension(200, 100));
+        jb.setBackground(Color.RED);
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 //go back
+                Main.cardlayout.show(Main.cards, "centralPanel");
             }
         });
+        add(jb);
         revalidate();
     }
 

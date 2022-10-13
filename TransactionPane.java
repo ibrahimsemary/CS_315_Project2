@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -15,5 +16,11 @@ public class TransactionPane extends JPanel{
         title.setBorder(new LineBorder(Color.BLACK));
         add(title);
         
+    }
+
+    public void display(String name, String cost) {
+        JLabel itemDisplay = new JLabel(name + "     $" + cost);
+        itemDisplay.setFont(new Font(itemDisplay.getFont().getName(), itemDisplay.getFont().getStyle(), 15));
+        add(itemDisplay);
     }
 }

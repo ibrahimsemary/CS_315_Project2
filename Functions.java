@@ -229,7 +229,7 @@ public class Functions{
                 return -1;
             }
         }
-        else if(combo_name.equals("biggerplate")){
+        else if(combo_name.equals("bigger plate")){
             if(entrees >= 3 && sides >= 1){
                 //do stuff
                 totalCost += 10.50;

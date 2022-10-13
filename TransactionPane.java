@@ -42,4 +42,8 @@ public class TransactionPane extends JPanel{
         Main.serverFrame.revalidate();
         itemIds.clear();
     }
+
+    public static void checkout() throws SQLException {
+        Functions.processTransaction(Main.transactionPanel.cost, itemIds);
+    }
 }

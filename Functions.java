@@ -13,14 +13,14 @@ public class Functions{
      * @param items             list of itemid for items purchased
      * @throws SQLException
      */
-    static void processTransaction(double cost, int[] items) throws SQLException{
+    static void processTransaction(double cost, ArrayList<Item> items) throws SQLException{
         
         ResultSet res = Database.executeQuery("SELECT MAX(transactionid) FROM transactions;");
         res.next();
         int t_id = Integer.parseInt(res.getString("max")) +1;
         Database.executeUpdate("INSERT INTO transactions VALUES (" + t_id +", CURRENT_DATE, " + cost + ");");
-        for(int itemid : items){
-            Database.executeUpdate("INSERT INTO transactionitems VALUES ("+t_id+", "+itemid+");");
+        for(Item item : items){
+            Database.executeUpdate("INSERT INTO transactionitems VALUES ("+t_id+", "+item.id+");");
         }
 
     }

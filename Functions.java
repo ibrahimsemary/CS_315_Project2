@@ -15,12 +15,12 @@ public class Functions{
      */
     static void processTransaction(double cost, int[] items) throws SQLException{
         
-        ResultSet res = Database.executeQuery("SELECT MAX(transactionid) FROM test_transaction;");
+        ResultSet res = Database.executeQuery("SELECT MAX(transactionid) FROM transactions;");
         res.next();
         int t_id = Integer.parseInt(res.getString("max")) +1;
-        Database.executeUpdate("INSERT INTO test_transaction VALUES (" + t_id +", CURRENT_DATE, " + cost + ");");
+        Database.executeUpdate("INSERT INTO transactions VALUES (" + t_id +", CURRENT_DATE, " + cost + ");");
         for(int itemid : items){
-            //Database.executeUpdate("INSERT INTO transactionitems_test VALUES ("+t_id+", "+itemid+");");
+            Database.executeUpdate("INSERT INTO transactionitems VALUES ("+t_id+", "+itemid+");");
         }
 
     }

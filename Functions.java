@@ -183,7 +183,7 @@ public class Functions{
         }
         return items;
     }
-
+    
     public static double processCombo(String combo_name, ArrayList<Item> items, double totalCost){
         int entrees = 0;
         int sides = 0;
@@ -209,7 +209,7 @@ public class Functions{
             }
         }
         //get cost of all entrees and one side subtract it + then add cost of bowl + add to bowl
-        if(combo_name == "bowl"){
+        if(combo_name.equals("bowl")){
             if(entrees >= 1 && sides >= 1){
                 totalCost += 7.50;
                 totalCost -= comboHelper(1, 1, items);
@@ -219,7 +219,7 @@ public class Functions{
                 return -1;
             }
         }
-        else if(combo_name == "plate"){
+        else if(combo_name.equals("plate")){
             if(entrees >= 2 && sides >= 1){
                 //do stuff
                 totalCost += 9.00;
@@ -229,7 +229,7 @@ public class Functions{
                 return -1;
             }
         }
-        else if(combo_name == "biggerplate"){
+        else if(combo_name.equals("biggerplate")){
             if(entrees >= 3 && sides >= 1){
                 //do stuff
                 totalCost += 10.50;

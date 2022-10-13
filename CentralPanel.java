@@ -58,6 +58,17 @@ public class CentralPanel extends JPanel{
                 }
             } 
             } );
+
+            combos.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        Main.cardlayout.show(Main.cards, "combosPanel");
+                    }
+                    catch(Exception x) {
+                        System.out.println(x.getMessage());
+                    }
+                }
+            });
         
     }
 

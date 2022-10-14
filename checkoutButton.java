@@ -16,6 +16,9 @@ public class checkoutButton extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 try {
                     TransactionPane.checkout();
+                    InventoryPanel yy = new InventoryPanel();
+                    Main.inventoryPanel = yy;
+                    Main.cards.add(yy, "inventoryPanel");
                     TransactionPane.clear();
                 }
                 catch(Exception x) {

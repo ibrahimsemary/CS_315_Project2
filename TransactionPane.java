@@ -36,10 +36,10 @@ public class TransactionPane extends JPanel{
 
     public static void clear() {
         TransactionPane newPane = new TransactionPane();
-        Main.serverFrame.remove(Main.transactionPanel);
+        Main.frame.remove(Main.transactionPanel);
         Main.transactionPanel = newPane;
-        Main.serverFrame.add(newPane, BorderLayout.EAST);
-        Main.serverFrame.revalidate();
+        Main.frame.add(newPane, BorderLayout.EAST);
+        Main.frame.revalidate();
         itemIds.clear();
     }
 

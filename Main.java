@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    static JFrame serverFrame;
+    static JFrame frame;
     static JFrame managerFrame;
     static CentralPanel centralPanel;
     static TransactionPane transactionPanel;
@@ -20,13 +20,12 @@ public class Main {
     static ItemPanel combosPanel;
     static CardLayout cardlayout;
     static JPanel cards;
-    static CostLabel cLabel;
+    static ManagerPanel managerPanel;
 
     public static void main(String args[]) {
         try {
             Database.connect();
             makeServer();
-            makeManager();
         }
         catch(SQLException e) {
             e.printStackTrace();
@@ -36,13 +35,13 @@ public class Main {
     }
 
     public static void makeServer() throws SQLException {
-            serverFrame = new JFrame();
+            frame = new JFrame();
             cardlayout = new CardLayout();
             cards = new JPanel(cardlayout);
-            serverFrame.setTitle("Panda Express");
-            serverFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            serverFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            serverFrame.addWindowListener(new WindowAdapter() {
+            frame.setTitle("Panda Express");
+            frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            frame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
                     try {Database.disconnect();}
@@ -51,37 +50,39 @@ public class Main {
                         System.err.println(f.getClass().getName()+": "+f.getMessage());
                         System.exit(0);
                     }
-                    serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 }
             });
             transactionPanel = new TransactionPane();
             centralPanel = new CentralPanel();
             checkoutPanel = new checkoutButton();
             topPanel = new TopPanel();
+            managerPanel = new ManagerPanel();
             entreePanel = new ItemPanel("entree");
             sidesPanel = new ItemPanel("side");
             extrasPanel = new ItemPanel("extra");
             combosPanel = new ItemPanel("combo");
-            cLabel = new CostLabel(0); 
-           // cards.add(transactionPanel, "transactionPanel");
+            // cards.add(transactionPanel, "transactionPanel");
             cards.add(centralPanel, "centralPanel");
-            //cards.add(topPanel, "topPanel");
+            cards.add(managerPanel, "managerPanel");
+           //  cards.add(topPanel, "topPanel");
             cards.add(entreePanel, "entreePanel");
             cards.add(sidesPanel, "sidesPanel");
             cards.add(extrasPanel, "extrasPanel");
             cards.add(combosPanel, "combosPanel");
 
-            serverFrame.add(transactionPanel, BorderLayout.EAST);
-            serverFrame.add(checkoutPanel, BorderLayout.SOUTH);
-            serverFrame.add(topPanel, BorderLayout.NORTH);
+            frame.add(transactionPanel, BorderLayout.EAST);
+            frame.add(checkoutPanel, BorderLayout.SOUTH);
+            frame.add(topPanel, BorderLayout.NORTH);
             //frame.add(entreePanel, BorderLayout.CENTER);
             // frame.add(sidesPanel, BorderLayout.CENTER);
             // frame.add(extrasPanel, BorderLayout.CENTER);
             //frame.add(centralPanel, BorderLayout.CENTER);
-
-            serverFrame.add(cards, BorderLayout.CENTER);
-            cardlayout.show(cards, "transactionPanel");
-            serverFrame.setVisible(true);
+            
+            frame.add(cards, BorderLayout.CENTER);
+            Main.cardlayout.show(Main.cards, "centralPanel");
+           //  cardlayout.show(cards, "transactionPanel");
+            frame.setVisible(true);
         //     entreePanel.setVisible(false);
         //      try {TimeUnit.SECONDS.sleep(10);}
         //  catch(InterruptedException e) {System.out.println("sd");}
@@ -93,7 +94,7 @@ public class Main {
     }
 
     public static void makeManager() {
-        managerFrame = new JFrame();
+        
         
     }
 

@@ -10,6 +10,7 @@ public class ManagerPanel extends JPanel{
         
         
         JButton inventory = new JButton("Inventory");
+        JButton updateInv = new JButton("Update Inventory");
         JButton pHistory = new JButton("Purchase History");
         JButton analysis = new JButton("Analysis");
         JButton items = new JButton("New Item");
@@ -19,7 +20,7 @@ public class ManagerPanel extends JPanel{
         analysis.setPreferredSize(new Dimension(200, 50));
         items.setPreferredSize(new Dimension(200, 50));
         updateItem.setPreferredSize(new Dimension(200, 50));
-
+        updateInv.setPreferredSize(new Dimension(200, 50));
         inventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Main.cardlayout.show(Main.cards, "inventoryPanel");
@@ -95,8 +96,29 @@ public class ManagerPanel extends JPanel{
             }
         });
 
+        updateInv.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    String itemName =  JOptionPane.showInputDialog("Ingredient name:");
+                    String itemType = JOptionPane.showInputDialog("expDate");
+                    String itemCost = JOptionPane.showInputDialog("Amount");
+                    Integer xx = Integer.parseInt(itemCost);
+
+                    Functions.addBatch(itemName, xx, itemType);
+                    InventoryPanel yy = new InventoryPanel();
+                    Main.inventoryPanel = yy;
+                    Main.cards.add(yy, "inventoryPanel");
+
+                }
+                catch(Exception x) {
+                    System.out.println(x.getMessage());
+                }
+            }
+        });
+
 
         add(inventory);
+        add(updateInv);
         add(items);
         add(updateItem);
         add(pHistory);

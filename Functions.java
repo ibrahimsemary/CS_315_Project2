@@ -28,6 +28,8 @@ public class Functions{
             i_id ++;
         }
 
+        decrementInventory(t_id);
+
     }
 
     /**
@@ -291,14 +293,18 @@ public class Functions{
     }
 
     public static void decrementInventory(int transactionid) throws SQLException{
-        Database.executeUpdate("DROP VIEW view1 CASCADE;");
-        Database.executeUpdate("CREATE VIEW view1 AS SELECT transactionid, id, name FROM transactionitems NATURAL JOIN items WHERE transactionid ="+transactionid+";");
+        //Database.executeUpdate("DROP VIEW view1 CASCADE;");
+        Database.executeUpdate("CREATE OR REPLACE VIEW view1 AS SELECT transactionid, id, name FROM transactionitems NATURAL JOIN items WHERE transactionid ="+transactionid+";");
         ResultSet res = Database.executeQuery("select itemid from items NATURAL JOIN ingredientslist NATURAL JOIN inventory NATURAL JOIN view1;");
         String id;
+        ArrayList<String> updates = new ArrayList<>();
         while(res.next()){
             id = res.getString("itemid");
-            System.out.println("UPDATE inventory SET totalquantity = totalquantity -1 WHERE itemid ="+id+";");
+            updates.add("UPDATE inventory SET totalquantity = totalquantity -1 WHERE itemid ="+id+";");
             //Database.executeUpdate("UPDATE inventory SET totalquantity = totalquantity -1 WHERE itemid ="+id+";");
+        }
+        for( String str : updates){
+            Database.executeUpdate(str);
         }
 
     }   

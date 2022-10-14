@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-//import java.awt.event;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LoginDOPE{
+public class LoginDOPE implements ActionListener{
 
 	private static JLabel password1, label;
 	private static JTextField username;
@@ -46,38 +47,22 @@ public class LoginDOPE{
         //butn constructor
         button = new JButton("Login");
         button.setBounds(100, 110, 90, 25);
-        //button.addActionListener((ActionListener) new LoginDope());
+        button.addActionListener(new LoginDOPE());
         panel.add(button);
 
         frame.setVisible(true);
     }
 
-    // LoginDope() {
+    @Override
+    public void actionPerformed(ActionEvent e){
+        String Username = username.getText();
+        String Password1 = Password.getText();
 
+        if (Username.equals("section.io") && Password1.equals("123"))
+            JOptionPane.showMessageDialog(null, "Login Successful");
+        else
+            JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
+    }
 
-
-
-
-
-
-
-
-
-
-    //     //when login btn is clicked, autheticates username and password
-    //     @Override
-    //     public void actionPerformed(ActionEvent e) {
-    //         String Username = username.getText();
-    //         String Password1 = Password.getText();
-
-    //         if (Username.equals("section.io") && Password1.equals("123"))
-    //             JOptionPane.showMessageDialog(null, "Login Successful");
-    //         else
-    //             JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
-    //     }
-    // }
-
-    
-    
 }
 

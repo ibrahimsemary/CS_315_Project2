@@ -175,6 +175,21 @@ public class Functions{
         Database.executeUpdate("UPDATE items SET cost = "+newCost+" WHERE name = '"+name +"';");
     }
 
+    public static void addBatch(String name, int amt, String expDate) throws SQLException{
+        ResultSet res = Database.executeQuery("SELECT MAX(batchid) FROM batch;");
+        res.next();
+        int batchid = Integer.parseInt(res.getString("max")) +1;
+        ResultSet res1 = Database.executeQuery("SELECT itemid FROM inventory WHERE itemname = '"+name+"';");
+        res1.next();
+        int itemid = Integer.parseInt(res1.getString("itemid"));
+        Database.executeUpdate("INSERT INTO batch VALUES ("+batchid+", '"+expDate+"', "+amt+", "+itemid+");");
+    }
+
+
+
+
+
+
     /**
      * 
      * @return

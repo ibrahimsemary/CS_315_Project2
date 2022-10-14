@@ -14,6 +14,12 @@ public class ManagerPanel extends JPanel{
         JButton analysis = new JButton("Analysis");
         JButton items = new JButton("Items");
         inventory.setPreferredSize(new Dimension(200, 50));
+        inventory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Main.cardlayout.show(Main.cards, "inventoryPanel");
+            }
+        });
+
         pHistory.setPreferredSize(new Dimension(200, 50));
         analysis.setPreferredSize(new Dimension(200, 50));
         items.setPreferredSize(new Dimension(200, 50));

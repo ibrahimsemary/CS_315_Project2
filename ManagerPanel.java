@@ -12,11 +12,19 @@ public class ManagerPanel extends JPanel{
         JButton inventory = new JButton("Inventory");
         JButton pHistory = new JButton("Purchase History");
         JButton analysis = new JButton("Analysis");
-        JButton items = new JButton("Items");
+        JButton items = new JButton("New Item");
+        JButton updateItem = new JButton("Update Item");
         inventory.setPreferredSize(new Dimension(200, 50));
         pHistory.setPreferredSize(new Dimension(200, 50));
         analysis.setPreferredSize(new Dimension(200, 50));
         items.setPreferredSize(new Dimension(200, 50));
+        updateItem.setPreferredSize(new Dimension(200, 50));
+
+        inventory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Main.cardlayout.show(Main.cards, "inventoryPanel");
+            }
+        });
 
         items.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -51,9 +59,46 @@ public class ManagerPanel extends JPanel{
             }
         });
 
+        updateItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String itemName =  JOptionPane.showInputDialog("Update Item:");
+                String itemType = JOptionPane.showInputDialog("New Item type(Entree, Side, Extra)");
+                String itemCost = JOptionPane.showInputDialog("Item cost");
+                Double cc = Double.parseDouble(itemCost);
+                itemName = itemName.toLowerCase();
+                itemType = itemType.toLowerCase();
+                if (!itemType.equals("entree") && !itemType.equals("side") && !itemType.equals("extra")){
+                    JOptionPane.showMessageDialog(null,itemType + " type does not exist!");
+                    return;
+                }
+                try {
+                        
+                        Functions.updateItem(itemName, cc);
+                        ItemPanel xx = new ItemPanel(itemType);
+                        if (itemType.equals("entree")) {
+                            Main.entreePanel = xx;
+                            Main.cards.add(xx, "entreePanel");
+                        }
+                        else if (itemType.equals("side")) {
+                            Main.sidesPanel = xx;
+                            Main.cards.add(xx, "sidesPanel");
+                        }
+                        else if(itemType.equals("extra")){
+                            Main.extrasPanel = xx;
+                            Main.cards.add(xx, "extrasPanel");
+                        }
+                    }
+                
+                catch (Exception x) {System.out.println(x.getMessage());}
+                
+
+            }
+        });
+
 
         add(inventory);
         add(items);
+        add(updateItem);
         add(pHistory);
         add(analysis);
         

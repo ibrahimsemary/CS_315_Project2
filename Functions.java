@@ -152,6 +152,20 @@ public class Functions{
 
     /**
      * 
+     * @param name
+     * @param type
+     * @param cost
+     * @throws SQLException
+     */
+    public static void addItem(String name, String type, double cost) throws SQLException{
+        ResultSet res = Database.executeQuery("SELECT MAX(id) FROM items;");
+        res.next();
+        int id = Integer.parseInt(res.getString("max")) +1;
+        Database.executeUpdate("INSERT INTO items VALUES ("+id+", '"+name+"', '"+type+"', "+cost+", 0);");
+    }
+
+    /**
+     * 
      * @return
      * @throws SQLException
      */
@@ -266,6 +280,8 @@ public class Functions{
         }
         return to_return;
     }
-    
 
+    //public static void decrementInventory(int transactionid) throws SQLException{
+        
+    //}   
 }

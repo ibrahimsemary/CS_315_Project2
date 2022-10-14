@@ -1,8 +1,8 @@
-/*import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event;
+//import java.awt.event;
 
-public class LoginDope implements ActionListener {
+public class LoginDOPE{
 
 	private static JLabel password1, label;
 	private static JTextField username;
@@ -10,16 +10,12 @@ public class LoginDope implements ActionListener {
 	private static JPasswordField Password;
 
     public static void main(String[] args) {
-        LoginDope();
-    }
-
-    LoginDope() {
-        // creating a JPanel class
+        
+        //making panel
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-
-        //JFRAME CLASS
+        //making frame
         JFrame frame = new JFrame();
         frame.setTitle("LOGIN PAGE");
         frame.setLocation(new Point(500, 300));
@@ -47,31 +43,41 @@ public class LoginDope implements ActionListener {
         Password.setBounds(100, 75, 193, 28);
         panel.add(Password);
 
-
         //butn constructor
         button = new JButton("Login");
         button.setBounds(100, 110, 90, 25);
-        button.setForeground(Color.WHITE);
-        button.setBackground(Color.BLACK);
-        button.addActionListener((ActionListener) new LoginDope());
+        //button.addActionListener((ActionListener) new LoginDope());
         panel.add(button);
 
-
-        //when login btn is clicked, autheticates username and password
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String Username = username.getText();
-            String Password1 = Password.getText();
-
-            if (Username.equals("section.io") && Password1.equals("123"))
-                JOptionPane.showMessageDialog(null, "Login Successful");
-            else
-                JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
-        }
+        frame.setVisible(true);
     }
+
+    // LoginDope() {
+
+
+
+
+
+
+
+
+
+
+
+    //     //when login btn is clicked, autheticates username and password
+    //     @Override
+    //     public void actionPerformed(ActionEvent e) {
+    //         String Username = username.getText();
+    //         String Password1 = Password.getText();
+
+    //         if (Username.equals("section.io") && Password1.equals("123"))
+    //             JOptionPane.showMessageDialog(null, "Login Successful");
+    //         else
+    //             JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
+    //     }
+    // }
 
     
     
 }
 
-*/

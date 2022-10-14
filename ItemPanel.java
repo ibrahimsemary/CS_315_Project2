@@ -24,7 +24,9 @@ public class ItemPanel extends JPanel{
                     if(item.equals("combo")) {
                         double temp = Functions.processCombo(my_item.name, Main.transactionPanel.itemIds, Main.transactionPanel.cost);
                         if (temp == -1) {
-                            //popup box
+                            //ERROR MESSAGE
+                            JOptionPane.showMessageDialog(null, "Cannot make desired combo with items currently in cart.", 
+                            "Incomplete Combo", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                         Main.transactionPanel.cost = temp;

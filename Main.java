@@ -21,7 +21,7 @@ public class Main {
     static CardLayout cardlayout;
     static JPanel cards;
     static ManagerPanel managerPanel;
-
+    static NewItemPanel newItemPanel;
     public static void main(String args[]) {
         try {
             Database.connect();
@@ -62,9 +62,11 @@ public class Main {
             sidesPanel = new ItemPanel("side");
             extrasPanel = new ItemPanel("extra");
             combosPanel = new ItemPanel("combo");
+            newItemPanel = new NewItemPanel();
             // cards.add(transactionPanel, "transactionPanel");
             cards.add(centralPanel, "centralPanel");
             cards.add(managerPanel, "managerPanel");
+            cards.add(newItemPanel, "newItemPanel");
            //  cards.add(topPanel, "topPanel");
             cards.add(entreePanel, "entreePanel");
             cards.add(sidesPanel, "sidesPanel");

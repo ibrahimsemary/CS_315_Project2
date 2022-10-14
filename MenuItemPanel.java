@@ -6,12 +6,12 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
-public class InventoryPanel extends JPanel  {    
+public class MenuItemPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
-    private static ArrayList<Functions.InventoryItem> inventoryItems;
+    private static ArrayList<Functions.Item> menuItems;
 
-    public InventoryPanel() throws SQLException {
+    public MenuItemPanel() throws SQLException {
         super(new GridLayout(1,0)); 
         /*super(new GridBagLayout());
 
@@ -54,21 +54,23 @@ public class InventoryPanel extends JPanel  {
  
         String[] columnNames = {"id",
                                 "name",
-                                "quantity"};
+                                "cost",
+                                "type"};
 
         String[] newItem;
         
-        inventoryItems = Functions.getInventoryItems();
+        menuItems = Functions.getItems();
 
-        String[][] data = new String[inventoryItems.size()][3];
+        String[][] data = new String[menuItems.size()][3];
 
         int i = 0;
 
-        for (Functions.InventoryItem item : inventoryItems) {
-            newItem = new String[3];
+        for (Functions.Item item : menuItems) {
+            newItem = new String[4];
             newItem[0] = "" + item.id;
             newItem[1] = item.name;
-            newItem[2] = "" + item.quantity;
+            newItem[2] = "" + item.cost;
+            newItem[3] = item.type;
 
             data[i] = newItem;
             i++;

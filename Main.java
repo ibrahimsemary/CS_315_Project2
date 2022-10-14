@@ -22,6 +22,7 @@ public class Main {
     static JPanel cards;
     static ManagerPanel managerPanel;
     static InventoryPanel inventoryPanel;
+    static MenuItemPanel menuItemPanel;
     public static void main(String args[]) {
         try {
             Database.connect();
@@ -63,10 +64,12 @@ public class Main {
             extrasPanel = new ItemPanel("extra");
             combosPanel = new ItemPanel("combo");
             inventoryPanel = new InventoryPanel();
+            menuItemPanel = new MenuItemPanel();
             // cards.add(transactionPanel, "transactionPanel");
             cards.add(centralPanel, "centralPanel");
             cards.add(managerPanel, "managerPanel");
             cards.add(inventoryPanel, "inventoryPanel");
+            cards.add(menuItemPanel, "menuItemPanel");
            //  cards.add(topPanel, "topPanel");
             cards.add(entreePanel, "entreePanel");
             cards.add(sidesPanel, "sidesPanel");

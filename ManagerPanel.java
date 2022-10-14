@@ -12,13 +12,15 @@ public class ManagerPanel extends JPanel{
         JButton inventory = new JButton("Inventory");
         JButton pHistory = new JButton("Purchase History");
         JButton analysis = new JButton("Analysis");
-        JButton items = new JButton("New Item");
+        JButton newItem = new JButton("New Item");
         JButton updateItem = new JButton("Update Item");
+        JButton menuItem = new JButton("Items");
         inventory.setPreferredSize(new Dimension(200, 50));
         pHistory.setPreferredSize(new Dimension(200, 50));
         analysis.setPreferredSize(new Dimension(200, 50));
-        items.setPreferredSize(new Dimension(200, 50));
+        newItem.setPreferredSize(new Dimension(200, 50));
         updateItem.setPreferredSize(new Dimension(200, 50));
+        menuItem.setPreferredSize(new Dimension(200, 50));
 
         inventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -26,7 +28,7 @@ public class ManagerPanel extends JPanel{
             }
         });
 
-        items.addActionListener(new ActionListener() {
+        newItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String itemName =  JOptionPane.showInputDialog("New Item to add:");
                 String itemType = JOptionPane.showInputDialog("New Item type(Entree, Side, Extra)");
@@ -95,9 +97,16 @@ public class ManagerPanel extends JPanel{
             }
         });
 
+        menuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Main.cardlayout.show(Main.cards, "menuItemPanel");
+            }
+        });
+
 
         add(inventory);
-        add(items);
+        add(menuItem);
+        add(newItem);
         add(updateItem);
         add(pHistory);
         add(analysis);

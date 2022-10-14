@@ -119,7 +119,6 @@ public class Functions{
        
         ArrayList<Item> items = new ArrayList<Item>();
         ResultSet res = Database.executeQuery("SELECT id,name,cost,type FROM items;");
-        res.next();
         while(res.next()){
             Integer tempID= Integer.parseInt(res.getString("id"));
             String tempName = res.getString("name");
@@ -139,7 +138,6 @@ public class Functions{
     public static ArrayList<InventoryItem>getInventoryItems() throws SQLException{
         ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
         ResultSet res = Database.executeQuery("SELECT itemid, itemname, totalquantity FROM inventory;");
-        res.next();
         while(res.next()){
             Integer tempID= Integer.parseInt(res.getString("itemid"));
             String tempName = res.getString("itemname");
@@ -162,6 +160,17 @@ public class Functions{
         res.next();
         int id = Integer.parseInt(res.getString("max")) +1;
         Database.executeUpdate("INSERT INTO items VALUES ("+id+", '"+name+"', '"+type+"', "+cost+", 0);");
+    }
+
+    /**
+     * 
+     * @param name
+     * @param newCost
+     * @throws SQLException
+     */
+
+    public static void updateItem(String name, double newCost) throws SQLException{
+        Database.executeUpdate("UPDATE items SET cost = "+newCost+" WHERE name = '"+name +"';");
     }
 
     /**
@@ -281,7 +290,16 @@ public class Functions{
         return to_return;
     }
 
-    //public static void decrementInventory(int transactionid) throws SQLException{
-        
-    //}   
+    public static void decrementInventory(int transactionid) throws SQLException{
+        Database.executeUpdate("DROP VIEW view1 CASCADE;");
+        Database.executeUpdate("CREATE VIEW view1 AS SELECT transactionid, id, name FROM transactionitems NATURAL JOIN items WHERE transactionid ="+transactionid+";");
+        ResultSet res = Database.executeQuery("select itemid from items NATURAL JOIN ingredientslist NATURAL JOIN inventory NATURAL JOIN view1;");
+        String id;
+        while(res.next()){
+            id = res.getString("itemid");
+            System.out.println("UPDATE inventory SET totalquantity = totalquantity -1 WHERE itemid ="+id+";");
+            //Database.executeUpdate("UPDATE inventory SET totalquantity = totalquantity -1 WHERE itemid ="+id+";");
+        }
+
+    }   
 }

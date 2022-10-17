@@ -98,9 +98,5 @@ public class Main {
             // frame.pack();
     }
 
-    public static void makeManager() {
-        
-        
-    }
 
 }

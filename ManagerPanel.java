@@ -55,6 +55,9 @@ public class ManagerPanel extends JPanel{
                         Main.extrasPanel = xx;
                         Main.cards.add(xx, "extrasPanel");
                     }
+                    MenuItemPanel dd = new MenuItemPanel();
+                    Main.menuItemPanel = dd;
+                    Main.cards.add(dd, "menuItemPanel");
                 }
                 catch (Exception x) {System.out.println(x.getMessage());}
                 
@@ -90,6 +93,9 @@ public class ManagerPanel extends JPanel{
                             Main.extrasPanel = xx;
                             Main.cards.add(xx, "extrasPanel");
                         }
+                        MenuItemPanel dd = new MenuItemPanel();
+                        Main.menuItemPanel = dd;
+                        Main.cards.add(dd, "menuItemPanel");
                     }
                 
                 catch (Exception x) {System.out.println(x.getMessage());}
@@ -123,6 +129,7 @@ public class ManagerPanel extends JPanel{
                 Main.cardlayout.show(Main.cards, "menuItemPanel");
             }
         });
+
 
 
         add(inventory);

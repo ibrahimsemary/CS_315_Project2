@@ -11,6 +11,7 @@ public class InventoryPanel extends JPanel  {
     private final static String newline = "\n";
     private static ArrayList<Functions.InventoryItem> inventoryItems;
 
+
     public InventoryPanel() throws SQLException {
         super(new GridLayout(1,0)); 
         /*super(new GridBagLayout());

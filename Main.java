@@ -23,6 +23,7 @@ public class Main {
     static ManagerPanel managerPanel;
     static InventoryPanel inventoryPanel;
     static MenuItemPanel menuItemPanel;
+    static PurchaseHistoryPanel purchaseHistoryPanel;
     public static void main(String args[]) {
         try {
             Database.connect();
@@ -65,11 +66,13 @@ public class Main {
             combosPanel = new ItemPanel("combo");
             inventoryPanel = new InventoryPanel();
             menuItemPanel = new MenuItemPanel();
+            purchaseHistoryPanel = new PurchaseHistoryPanel();
             // cards.add(transactionPanel, "transactionPanel");
             cards.add(centralPanel, "centralPanel");
             cards.add(managerPanel, "managerPanel");
             cards.add(inventoryPanel, "inventoryPanel");
             cards.add(menuItemPanel, "menuItemPanel");
+            cards.add(purchaseHistoryPanel, "purchaseHistoryPanel");
            //  cards.add(topPanel, "topPanel");
             cards.add(entreePanel, "entreePanel");
             cards.add(sidesPanel, "sidesPanel");

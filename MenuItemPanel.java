@@ -17,11 +17,6 @@ public class MenuItemPanel extends JPanel  {
     public MenuItemPanel() throws SQLException {
         super(new GridBagLayout());
 
-        /*super(new GridBagLayout());
-
-        textArea = new JTextArea(10, 50);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        textArea.setEditable(false);*/
         JButton newItem = new JButton("New Item");
         JButton updateItem = new JButton("Update Item");
 
@@ -130,7 +125,7 @@ public class MenuItemPanel extends JPanel  {
         
         menuItems = Functions.getItems();
 
-        String[][] data = new String[menuItems.size()][3];
+        String[][] data = new String[menuItems.size()][4];
 
         int i = 0;
 

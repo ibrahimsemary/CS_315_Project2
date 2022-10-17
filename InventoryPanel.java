@@ -13,12 +13,7 @@ public class InventoryPanel extends JPanel  {
 
 
     public InventoryPanel() throws SQLException {
-        super(new GridBagLayout()); 
-        /*super(new GridBagLayout());
-
-        textArea = new JTextArea(10, 50);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        textArea.setEditable(false);*/
+        super(new GridBagLayout());
 
         JButton updateInv = new JButton("Update Inventory");
         updateInv.setPreferredSize(new Dimension(200, 50));
@@ -57,28 +52,6 @@ public class InventoryPanel extends JPanel  {
         add(updateInv);
         add(jb);
 
-        //JButton update = new JButton("Update Inventory");
-
-
-        /*//Add Components to this panel.
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.REMAINDER;
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1.0;
-        c.weighty = 1.0;
-        add(scrollPane, c);
-
-        inventoryItems = Functions.getInventoryItems();
-
-        for (Functions.InventoryItem item : inventoryItems) {
-            
-        }*/
-
-        
- 
         String[] columnNames = {"id",
                                 "name",
                                 "quantity"};
@@ -101,17 +74,15 @@ public class InventoryPanel extends JPanel  {
             i++;
         }
 
-
- 
         final JTable table = new JTable(data, columnNames);
         table.setRowHeight(30);
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
         
- 
+
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(700, 700));
- 
+        scrollPane.setPreferredSize(new Dimension(500, 500));
+
         //Add the scroll pane to this panel.
         add(scrollPane);
     }

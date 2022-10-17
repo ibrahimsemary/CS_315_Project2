@@ -119,29 +119,7 @@ public class MenuItemPanel extends JPanel  {
                 Main.cardlayout.show(Main.cards, "managerPanel");
             }
         });
-        add(jb);
-
-        //JButton update = new JButton("Update Inventory");
-
-
-        /*//Add Components to this panel.
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.REMAINDER;
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-
-        c.fill = GridBagConstraints.BOTH;
-        c.weightx = 1.0;
-        c.weighty = 1.0;
-        add(scrollPane, c);
-
-        inventoryItems = Functions.getInventoryItems();
-
-        for (Functions.InventoryItem item : inventoryItems) {
-            
-        }*/
-
-        
+        add(jb);        
  
         String[] columnNames = {"id",
                                 "name",
@@ -173,7 +151,7 @@ public class MenuItemPanel extends JPanel  {
  
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(700, 700));
+        scrollPane.setPreferredSize(new Dimension(500, 500));
  
         //Add the scroll pane to this panel.
         add(scrollPane);

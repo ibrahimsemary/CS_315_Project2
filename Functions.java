@@ -175,6 +175,20 @@ public class Functions{
         int id = Integer.parseInt(res.getString("max")) +1;
         Database.executeUpdate("INSERT INTO items VALUES ("+id+", '"+name+"', '"+type+"', "+cost+", 0);");
     }
+    /*
+    public static void addItem(String name, String type, double cost, ArrayList<String> items) throws SQLException{
+        addItem(name, type, cost);
+        ResultSet res;
+        for(String item : items){
+            res = Database.executeQuery("SELECT * FROM inventory WHERE itemname = '" + item + "';");
+            if(res.next()){
+                int id = Integer.parseInt(res.getString("itemid"));
+                // "INSERT INTO ingredientslist VALUES ("
+            } else {
+                ;
+            }
+        }
+    }*/
 
     /**
      * 
@@ -338,7 +352,7 @@ public class Functions{
     
     public static ArrayList<Transaction> getTransactions(String startDate, String endDate) throws SQLException{
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-        String q = "SELECT * FROM transactions WHERE '"+ startDate +"' <= transactiondate AND transactiondate <= '"+ endDate +"';";
+        String q = "SELECT * FROM transactions WHERE '"+ startDate +"' <= transactiondate AND transactiondate <= '"+ endDate +"' ORDER BY transactiondate DESC;";
         ResultSet res = Database.executeQuery(q);
         //System.out.println(q);      
         while(res.next()){

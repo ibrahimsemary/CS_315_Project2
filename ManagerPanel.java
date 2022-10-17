@@ -3,10 +3,11 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class ManagerPanel extends JPanel{
 
-    ManagerPanel() { 
+    ManagerPanel() throws SQLException { 
         
         
         JButton inventory = new JButton("Inventory");
@@ -35,7 +36,15 @@ public class ManagerPanel extends JPanel{
 
         pHistory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Main.cardlayout.show(Main.cards, "purchaseHistoryPanel");
+                try {
+                    String start = JOptionPane.showInputDialog("Start Date");
+                    String end = JOptionPane.showInputDialog("End Date");
+                    Main.purchaseHistoryPanel = new PurchaseHistoryPanel(start, end);
+                    Main.cards.add(Main.purchaseHistoryPanel, "purchaseHistoryPanel");
+                    Main.cardlayout.show(Main.cards, "purchaseHistoryPanel");
+                } catch (Exception x) {
+                    System.out.println(x.getMessage());
+                }
             }
         });
 

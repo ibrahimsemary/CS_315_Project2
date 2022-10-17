@@ -17,7 +17,7 @@ public class PurchaseHistoryPanel extends JPanel  {
     private final static String newline = "\n";
     private static ArrayList<Functions.Transaction> transactions;
 
-    public PurchaseHistoryPanel() throws SQLException {
+    public PurchaseHistoryPanel(String start, String end) throws SQLException {
         super(new GridBagLayout());
 
         JButton jb = new JButton("GO BACK");
@@ -32,25 +32,24 @@ public class PurchaseHistoryPanel extends JPanel  {
         add(jb);  
         
         JLabel wrongDate = new JLabel("One or both of the selected dates is out of range");
- 
-        try {    String[] columnNames = {"date",
+
+        try {    
+            String[] columnNames = {"date",
                                     "id",
                                     "cost"};
 
             String[] displayItem;
 
-            Date today = new Date();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            String now = df.format(today);
+            
 
-            transactions = Functions.getTransactions("10-6-2022", "10-12-2022");
+            transactions = Functions.getTransactions(start, end);
             String[][] data = new String[transactions.size()][3];
             int i = 0;
             for (Functions.Transaction item : transactions) {
                 displayItem = new String[3];
                 displayItem[0] = item.date;
                 displayItem[1] = "" + item.id;
-                displayItem[2] = "" + item.cost;
+                displayItem[2] = String.format("%.2f", item.cost);
 
                 data[i] = displayItem;
                 i++;
@@ -66,6 +65,7 @@ public class PurchaseHistoryPanel extends JPanel  {
         } catch (Exception x) {
             wrongDate.setPreferredSize(new Dimension(400, 100));
             add(wrongDate);
+            System.out.print(x.getMessage());
         }
     }
 }

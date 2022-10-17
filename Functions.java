@@ -113,6 +113,18 @@ public class Functions{
         }
     }
 
+    public static class Transaction{
+        public int id;
+        public String date;
+        public double cost;
+
+        public Transaction(int id, String date, double cost){
+            this.id = id;
+            this.date = date;
+            this.cost = cost;
+        }
+    }
+
     /**
      * @return
      * @throws SQLException
@@ -322,5 +334,20 @@ public class Functions{
             Database.executeUpdate(str);
         }
 
-    }   
+    }
+    
+    public static ArrayList<Transaction> getTransactions(String startDate, String endDate) throws SQLException{
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        String q = "SELECT * FROM transactions WHERE '"+ startDate +"' <= transactiondate AND transactiondate <= '"+ endDate +"';";
+        ResultSet res = Database.executeQuery(q);
+        //System.out.println(q);      
+        while(res.next()){
+            Transaction t = new Transaction(Integer.parseInt(res.getString("transactionid")), 
+                                            res.getString("transactiondate"), 
+                                            Double.parseDouble(res.getString("totalcost")));
+            transactions.add(t);
+        }      
+
+        return transactions;
+    }
 }

@@ -21,6 +21,7 @@ public class PurchaseHistoryPanel extends JPanel  {
         super(new GridBagLayout());
 
         JButton jb = new JButton("GO BACK");
+        JButton changeDates = new JButton("Change Dates");
         jb.setPreferredSize(new Dimension(200, 50));
         jb.setBackground(Color.GRAY);
         jb.addActionListener(new ActionListener(){
@@ -29,6 +30,26 @@ public class PurchaseHistoryPanel extends JPanel  {
                 Main.cardlayout.show(Main.cards, "managerPanel");
             }
         });
+
+        changeDates.setPreferredSize(new Dimension(200,50));
+        changeDates.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String newStart =  JOptionPane.showInputDialog("Start Date");
+                String newEnd = JOptionPane.showInputDialog("End Date");
+
+                try {
+                        PurchaseHistoryPanel newPHPanel = new PurchaseHistoryPanel(newStart, newEnd);
+                        Main.purchaseHistoryPanel = newPHPanel;
+                        Main.cards.add(newPHPanel, "purchaseHistoryPanel");
+                        Main.purchaseHistoryPanel.revalidate();
+                        Main.cardlayout.show(Main.cards, "purchaseHistoryPanel");
+                    }
+                
+                catch (Exception x) {System.out.println(x.getMessage());}
+            }
+        });
+
+        add(changeDates);
         add(jb);  
         
         JLabel wrongDate = new JLabel("One or both of the selected dates is out of range");
@@ -39,8 +60,6 @@ public class PurchaseHistoryPanel extends JPanel  {
                                     "cost"};
 
             String[] displayItem;
-
-            
 
             transactions = Functions.getTransactions(start, end);
             String[][] data = new String[transactions.size()][3];

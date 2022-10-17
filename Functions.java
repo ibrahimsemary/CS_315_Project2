@@ -351,9 +351,9 @@ public class Functions{
         return transactions;
     }
 
-    public static ArrayList<ArrayList<String>> getTopItems(String fromDate) throws SQLException{
+    public static ArrayList<ArrayList<String>> getTopItems(String startDate, String endDate) throws SQLException{
         ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
-        String q1 = "CREATE OR REPLACE VIEW view11 AS SELECT indexid, transactionitems.transactionid, id FROM transactionitems LEFT JOIN transactions on transactionitems.transactionid = transactions.transactionid WHERE transactiondate >= '"+fromDate+"';";
+        String q1 = "CREATE OR REPLACE VIEW view11 AS SELECT indexid, transactionitems.transactionid, id FROM transactionitems LEFT JOIN transactions on transactionitems.transactionid = transactions.transactionid WHERE transactiondate >= '"+startDate+"' AND transactiondate <= '"+endDate+"';";
         String q2 = "SELECT name, count(*) amountOrdered from view11 NATURAL JOIN items GROUP BY (id, name) ORDER BY amountOrdered DESC;";
         Database.executeUpdate(q1);
         ResultSet res = Database.executeQuery(q2);

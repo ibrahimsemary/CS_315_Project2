@@ -43,6 +43,19 @@ public class ReportPanel extends JPanel{
             }
         });
 
+        excessReport.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Main.excessReportPanel = new ExcessReportPanel();
+                    Main.cards.add(Main.excessReportPanel, "excessReportPanel");
+                    Main.cardlayout.show(Main.cards, "excessReportPanel");
+                } catch (Exception x) {
+                    System.out.println(x.getMessage());
+                }
+
+            }
+        });
+
         add(salesReport);
         add(excessReport);
         add(restockReport);

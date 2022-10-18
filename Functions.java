@@ -179,22 +179,28 @@ public class Functions{
     
     public static void addItem(String name, String type, double cost, ArrayList<String> items) throws SQLException{
         int id;
-        //id = addItem(name, type, cost);
-        id=1;
+        id = addItem(name, type, cost);
         ResultSet res1 = Database.executeQuery("SELECT MAX(indexid) from ingredientslist;");
         res1.next();
         int indexid = Integer.parseInt(res1.getString("max")) +1;
         ResultSet res;
-        for(String item : items){
-            res = Database.executeQuery("SELECT * FROM inventory WHERE itemname = '" + item + "';");
+        int i=0;
+        while(i < items.size()){
+            res = Database.executeQuery("SELECT * FROM inventory WHERE itemname = '" + items.get(i) + "';");
             if(res.next()){
-                System.out.println("item in inventory");
+                System.out.println(items.get(i) +" in inventory");
                 int itemid = Integer.parseInt(res.getString("itemid"));
-                System.out.println("INSERT INTO ingredientslist VALUES ("+indexid+" ,"+ id +", " + itemid +");");
-                //Database.executeUpdate("INSERT INTO ingredientslist VALUES ("+indexid+" ,"+ id +", " + itemid +");");
+                System.out.println("INSERT INTO ingredientslist VALUES ("+indexid+", "+ id +", " + itemid +");");
+                Database.executeUpdate("INSERT INTO ingredientslist VALUES ("+indexid+" ,"+ id +", " + itemid +");");
                 indexid++;
+                i++;
             } else {
                 System.out.println("Item not in inventory");
+                res1 = Database.executeQuery("SELECT MAX(itemid) FROM inventory;");
+                res1.next();
+                int newitemid = Integer.parseInt(res1.getString("max")) +1;
+                System.out.println("INSERT INTO inventory VALUES ("+newitemid+", '"+ items.get(i) +"', 0 , 100);");
+                Database.executeUpdate("INSERT INTO inventory VALUES ("+newitemid+", '"+ items.get(i) +"',0 , 100);");
             }
         }
     }

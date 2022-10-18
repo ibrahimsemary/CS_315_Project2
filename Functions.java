@@ -169,26 +169,41 @@ public class Functions{
      * @param cost
      * @throws SQLException
      */
-    public static void addItem(String name, String type, double cost) throws SQLException{
+    public static int addItem(String name, String type, double cost) throws SQLException{
         ResultSet res = Database.executeQuery("SELECT MAX(id) FROM items;");
         res.next();
         int id = Integer.parseInt(res.getString("max")) +1;
         Database.executeUpdate("INSERT INTO items VALUES ("+id+", '"+name+"', '"+type+"', "+cost+", 0);");
+        return id;
     }
-    /*
+    
     public static void addItem(String name, String type, double cost, ArrayList<String> items) throws SQLException{
-        addItem(name, type, cost);
+        int id;
+        id = addItem(name, type, cost);
+        ResultSet res1 = Database.executeQuery("SELECT MAX(indexid) from ingredientslist;");
+        res1.next();
+        int indexid = Integer.parseInt(res1.getString("max")) +1;
         ResultSet res;
-        for(String item : items){
-            res = Database.executeQuery("SELECT * FROM inventory WHERE itemname = '" + item + "';");
+        int i=0;
+        while(i < items.size()){
+            res = Database.executeQuery("SELECT * FROM inventory WHERE itemname = '" + items.get(i) + "';");
             if(res.next()){
-                int id = Integer.parseInt(res.getString("itemid"));
-                // "INSERT INTO ingredientslist VALUES ("
+                System.out.println(items.get(i) +" in inventory");
+                int itemid = Integer.parseInt(res.getString("itemid"));
+                System.out.println("INSERT INTO ingredientslist VALUES ("+indexid+", "+ id +", " + itemid +");");
+                Database.executeUpdate("INSERT INTO ingredientslist VALUES ("+indexid+" ,"+ id +", " + itemid +");");
+                indexid++;
+                i++;
             } else {
-                ;
+                System.out.println("Item not in inventory");
+                res1 = Database.executeQuery("SELECT MAX(itemid) FROM inventory;");
+                res1.next();
+                int newitemid = Integer.parseInt(res1.getString("max")) +1;
+                System.out.println("INSERT INTO inventory VALUES ("+newitemid+", '"+ items.get(i) +"', 0 , 100);");
+                Database.executeUpdate("INSERT INTO inventory VALUES ("+newitemid+", '"+ items.get(i) +"',0 , 100);");
             }
         }
-    }*/
+    }
 
     /**
      * 
@@ -362,6 +377,22 @@ public class Functions{
         }      
 
         return transactions;
+    }
+
+    public static ArrayList<ArrayList<String>> getTopItems(String fromDate) throws SQLException{
+        ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
+        String q1 = "CREATE OR REPLACE VIEW view11 AS SELECT indexid, transactionitems.transactionid, id FROM transactionitems LEFT JOIN transactions on transactionitems.transactionid = transactions.transactionid WHERE transactiondate >= '"+fromDate+"';";
+        String q2 = "SELECT name, count(*) amountOrdered from view11 NATURAL JOIN items GROUP BY (id, name) ORDER BY amountOrdered DESC;";
+        Database.executeUpdate(q1);
+        ResultSet res = Database.executeQuery(q2);
+        while(res.next()){
+            ArrayList<String> temp = new ArrayList<String>();
+            temp.add(res.getString("name"));
+            temp.add(res.getString("amountOrdered"));
+            items.add(temp);
+        }
+
+        return items;
     }
 
     public static ArrayList<ArrayList<String>> getTopItems(String startDate, String endDate) throws SQLException{

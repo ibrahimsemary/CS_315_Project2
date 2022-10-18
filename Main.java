@@ -24,7 +24,7 @@ public class Main {
     static InventoryPanel inventoryPanel;
     static MenuItemPanel menuItemPanel;
     static PurchaseHistoryPanel purchaseHistoryPanel;
-    
+    static ReportPanel reportPanel;
     public static void main(String args[]) {
         try {
             Database.connect();
@@ -67,12 +67,14 @@ public class Main {
             combosPanel = new ItemPanel("combo");
             inventoryPanel = new InventoryPanel();
             menuItemPanel = new MenuItemPanel();
+            reportPanel = new ReportPanel();
             //purchaseHistoryPanel = new PurchaseHistoryPanel();
             // cards.add(transactionPanel, "transactionPanel");
             cards.add(centralPanel, "centralPanel");
             cards.add(managerPanel, "managerPanel");
             cards.add(inventoryPanel, "inventoryPanel");
             cards.add(menuItemPanel, "menuItemPanel");
+            cards.add(reportPanel, "reportPanel");
             //cards.add(purchaseHistoryPanel, "purchaseHistoryPanel");
            //  cards.add(topPanel, "topPanel");
             cards.add(entreePanel, "entreePanel");

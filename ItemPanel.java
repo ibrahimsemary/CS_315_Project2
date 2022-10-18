@@ -6,6 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.function.Function;
 
+/**
+ * @category Server Side
+ * @summary General Template to load the entrees, sides, combos, and extras
+ */
 public class ItemPanel extends JPanel{
     
     ItemPanel(String item) throws SQLException{

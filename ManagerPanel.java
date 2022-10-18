@@ -11,12 +11,12 @@ public class ManagerPanel extends JPanel{
         
         
         JButton inventory = new JButton("Inventory");
-        JButton analysis = new JButton("Analysis");
+        // JButton analysis = new JButton("Analysis");
         JButton menuItem = new JButton("Items");
         JButton report = new JButton("Report");
 
         inventory.setPreferredSize(new Dimension(200, 50));
-        analysis.setPreferredSize(new Dimension(200, 50));
+       // analysis.setPreferredSize(new Dimension(200, 50));
         menuItem.setPreferredSize(new Dimension(200, 50));
         report.setPreferredSize(new Dimension(200, 50));
 
@@ -47,7 +47,7 @@ public class ManagerPanel extends JPanel{
         add(inventory);
         add(menuItem);
         add(report);
-        add(analysis);
+       // add(analysis);
         
         
     }

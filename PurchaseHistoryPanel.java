@@ -27,7 +27,7 @@ public class PurchaseHistoryPanel extends JPanel  {
         jb.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 //go back
-                Main.cardlayout.show(Main.cards, "managerPanel");
+                Main.cardlayout.show(Main.cards, "reportPanel");
             }
         });
 

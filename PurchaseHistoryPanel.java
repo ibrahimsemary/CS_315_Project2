@@ -15,7 +15,7 @@ import java.util.Date;
 public class PurchaseHistoryPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
-    private static ArrayList<Functions.Transaction> transactions;
+    private static ArrayList<ArrayList<String>> transactions;
 
     public PurchaseHistoryPanel(String start, String end) throws SQLException {
         super(new GridBagLayout());
@@ -55,20 +55,18 @@ public class PurchaseHistoryPanel extends JPanel  {
         JLabel wrongDate = new JLabel("One or both of the selected dates is out of range");
 
         try {    
-            String[] columnNames = {"date",
-                                    "id",
-                                    "cost"};
+            String[] columnNames = {"Name",
+                                    "Amount Ordered"};
 
             String[] displayItem;
 
-            transactions = Functions.getTransactions(start, end);
-            String[][] data = new String[transactions.size()][3];
+            transactions = Functions.getTopItems(start, end);
+            String[][] data = new String[transactions.size()][2];
             int i = 0;
-            for (Functions.Transaction item : transactions) {
-                displayItem = new String[3];
-                displayItem[0] = item.date;
-                displayItem[1] = "" + item.id;
-                displayItem[2] = String.format("%.2f", item.cost);
+            for (ArrayList<String> item : transactions) {
+                displayItem = new String[2];
+                displayItem[0] = item.get(0);
+                displayItem[1] = "" + item.get(1);
 
                 data[i] = displayItem;
                 i++;

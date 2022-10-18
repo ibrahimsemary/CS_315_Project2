@@ -35,6 +35,7 @@ public class ReportPanel extends JPanel{
                 try{
                     String start = JOptionPane.showInputDialog("Start Date");
                     String end = JOptionPane.showInputDialog("End Date");
+                    if (end == "") {end = "1/1/2500";}
                     Main.purchaseHistoryPanel = new PurchaseHistoryPanel(start, end);
                     Main.cards.add(Main.purchaseHistoryPanel, "purchaseHistoryPanel");
                     Main.cardlayout.show(Main.cards, "purchaseHistoryPanel");

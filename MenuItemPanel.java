@@ -34,8 +34,15 @@ public class MenuItemPanel extends JPanel  {
                     JOptionPane.showMessageDialog(null,itemType + " type does not exist!");
                     return;
                 }
+                String curIngredient = "";
+                ArrayList<String> ings = new ArrayList<>();
+                curIngredient = JOptionPane.showInputDialog("Enter Ingredient for " + itemName + "(enter stop to stop)");
+                while (!curIngredient.equals("stop")) {
+                    ings.add(curIngredient);
+                    curIngredient = JOptionPane.showInputDialog("Enter Ingredient for " + itemName + "(enter stop to stop)");
+                }
                 try {
-                    Functions.addItem(itemName, itemType, cc);
+                    Functions.addItem(itemName, itemType, cc, ings);
                     ItemPanel xx = new ItemPanel(itemType);
                     if (itemType.equals("entree")) {
                         Main.entreePanel = xx;
@@ -54,6 +61,11 @@ public class MenuItemPanel extends JPanel  {
                     Main.cards.add(dd, "menuItemPanel");
                     Main.menuItemPanel.revalidate();
                     Main.cardlayout.show(Main.cards, "menuItemPanel");
+
+                    InventoryPanel ff = new InventoryPanel();
+                    Main.inventoryPanel = ff;
+                    Main.cards.add(ff, "inventoryPanel");
+                    Main.inventoryPanel.revalidate();
                 }
                 catch (Exception x) {System.out.println(x.getMessage());}
                 

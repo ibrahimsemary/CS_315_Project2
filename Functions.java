@@ -188,18 +188,18 @@ public class Functions{
         while(i < items.size()){
             res = Database.executeQuery("SELECT * FROM inventory WHERE itemname = '" + items.get(i) + "';");
             if(res.next()){
-                System.out.println(items.get(i) +" in inventory");
+                // System.out.println(items.get(i) +" in inventory");
                 int itemid = Integer.parseInt(res.getString("itemid"));
-                System.out.println("INSERT INTO ingredientslist VALUES ("+indexid+", "+ id +", " + itemid +");");
+                //System.out.println("INSERT INTO ingredientslist VALUES ("+indexid+", "+ id +", " + itemid +");");
                 Database.executeUpdate("INSERT INTO ingredientslist VALUES ("+indexid+" ,"+ id +", " + itemid +");");
                 indexid++;
                 i++;
             } else {
-                System.out.println("Item not in inventory");
+                // System.out.println("Item not in inventory");
                 res1 = Database.executeQuery("SELECT MAX(itemid) FROM inventory;");
                 res1.next();
                 int newitemid = Integer.parseInt(res1.getString("max")) +1;
-                System.out.println("INSERT INTO inventory VALUES ("+newitemid+", '"+ items.get(i) +"', 0 , 100);");
+                // System.out.println("INSERT INTO inventory VALUES ("+newitemid+", '"+ items.get(i) +"', 0 , 100);");
                 Database.executeUpdate("INSERT INTO inventory VALUES ("+newitemid+", '"+ items.get(i) +"',0 , 100);");
             }
         }
@@ -362,7 +362,6 @@ public class Functions{
         for( String str : updates){
             Database.executeUpdate(str);
         }
-
     }
     
     public static ArrayList<Transaction> getTransactions(String startDate, String endDate) throws SQLException{
@@ -410,5 +409,17 @@ public class Functions{
         }
 
         return items;
+    }
+
+    public static ArrayList<InventoryItem> underStockedIngredients() throws SQLException{
+        ArrayList<InventoryItem> to_return = new ArrayList<>();
+        ResultSet res = Database.executeQuery("SELECT * FROM INVENTORY WHERE INVENTORY.TOTALQUANTITY < INVENTORY.MINIMUMAMOUNT;");
+        while(res.next()){
+            Integer quantity = Integer.parseInt(res.getString("totalquantity"));
+            Integer id = Integer.parseInt(res.getString("itemid"));
+            String name = res.getString("itemname");
+            to_return.add(new InventoryItem(id, name, quantity));
+        }
+        return to_return;
     }
 }

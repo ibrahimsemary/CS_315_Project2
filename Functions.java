@@ -362,7 +362,6 @@ public class Functions{
         for( String str : updates){
             Database.executeUpdate(str);
         }
-
     }
     
     public static ArrayList<Transaction> getTransactions(String startDate, String endDate) throws SQLException{
@@ -410,5 +409,17 @@ public class Functions{
         }
 
         return items;
+    }
+
+    public static ArrayList<InventoryItem> underStockedIngredients() throws SQLException{
+        ArrayList<InventoryItem> to_return = new ArrayList<>();
+        ResultSet res = Database.executeQuery("SELECT * FROM INVENTORY WHERE INVENTORY.TOTALQUANTITY < INVENTORY.MINIMUMAMOUNT;");
+        while(res.next()){
+            Integer quantity = Integer.parseInt(res.getString("totalquantity"));
+            Integer id = Integer.parseInt(res.getString("itemid"));
+            String name = res.getString("itemname");
+            to_return.add(new InventoryItem(id, name, quantity));
+        }
+        return to_return;
     }
 }

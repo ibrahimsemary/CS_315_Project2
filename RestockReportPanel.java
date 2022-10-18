@@ -12,12 +12,12 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.*;
 import java.util.Date;
 
-public class ExcessReportPanel extends JPanel  {    
+public class RestockReportPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
     private static ArrayList<Functions.InventoryItem> underExcess;
 
-    public ExcessReportPanel() throws SQLException {
+    public RestockReportPanel() throws SQLException {
         super(new GridBagLayout());
 
         JButton jb = new JButton("GO BACK");

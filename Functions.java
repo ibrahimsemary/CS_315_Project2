@@ -422,4 +422,87 @@ public class Functions{
         }
         return to_return;
     }
+
+    public static class pairCount implements Comparable<pairCount>{
+
+        int first;
+        int second;
+        int count;
+
+        public pairCount(int first, int second, int count){
+            this.first = first;
+            this.second = second;
+            this.count = count;
+        }
+
+        @Override
+        public int compareTo(pairCount p2){
+            
+            if(this.count < p2.count)
+                return 1;
+            return -1;
+        }
+    }
+
+    public static ArrayList<ArrayList<String>> getPairs(String startDate, String endDate) throws SQLException{
+
+        ArrayList<ArrayList<String>> pairs = new ArrayList<ArrayList<String>>();
+        Database.executeUpdate("CREATE OR REPLACE VIEW view44 AS select transactionid, indexid, id from transactionitems NATURAL JOIN transactions WHERE '"+startDate +"' <= transactiondate and transactiondate <= '" + endDate +"';");
+        ResultSet res1 = Database.executeQuery("SELECT MAX(id) FROM items;");
+        res1.next();
+        int maxid = Integer.parseInt(res1.getString("max")) +1;
+
+        int[][] counts = new int[maxid][maxid];
+        
+        ResultSet res = Database.executeQuery("SELECT a.id id1, b.id id2 FROM view44 a JOIN view44 b on a.transactionid = b.transactionid WHERE a.id != b.id;");
+        while(res.next()){
+            int id1 = Integer.parseInt(res.getString("id1"));
+            int id2 = Integer.parseInt(res.getString("id2"));
+            if(id1 > id2){
+                counts[id2][id1]++;
+            } else {
+                counts[id1][id2]++;
+            }
+        }
+
+        ArrayList<pairCount> counts1 = new ArrayList<>();
+        for(int i=0; i<maxid; i++){
+            for(int j=0; j<maxid; j++){
+                if(counts[i][j] > 0){
+                    counts1.add(new pairCount(i,j, counts[i][j]));
+                }
+            }
+        }
+        
+        counts1.sort( ((o1, o2) -> o1.compareTo(o2)) );
+        
+        String[] names = new String[100];
+        for(int i=0; i<counts1.size(); i++){
+            ArrayList<String> temp = new ArrayList<>();
+            String name;
+            if(names[counts1.get(i).first] == null){
+                ResultSet res2 = Database.executeQuery("SELECT name FROM items WHERE id = " + counts1.get(i).first);
+                res2.next();
+                name = res2.getString("name");
+                names[counts1.get(i).first] = name;
+                temp.add(name);
+            } else {
+                temp.add(names[counts1.get(i).first]);
+            }
+            if(names[counts1.get(i).second] == null){
+                ResultSet res2 = Database.executeQuery("SELECT name FROM items WHERE id = " + counts1.get(i).second);
+                res2.next();
+                name = res2.getString("name");
+                names[counts1.get(i).second] = name;
+                temp.add(name);
+            } else {
+                temp.add(names[counts1.get(i).second]);
+            }
+            temp.add(""+counts1.get(i).count);
+            //System.out.println(temp.get(0) + " " + temp.get(1) + " "+ temp.get(2));
+            pairs.add(temp);
+        }
+
+        return pairs;
+    }
 }

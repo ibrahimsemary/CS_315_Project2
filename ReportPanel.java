@@ -38,9 +38,11 @@ public class ReportPanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 try{
                     String start = JOptionPane.showInputDialog("Start Date");
-                    if (start == "") {start = "1/1/1000";}
+                    if (start == null) {return;}
+                    else if (start.length() < 1) {start = "1/1/1000";}
                     String end = JOptionPane.showInputDialog("End Date");
-                    if (end == "") {end = "1/1/2500";}
+                    if (end == null) {return;}
+                    else if (end.length() < 1) {end = "1/1/2500";}
                     Main.purchaseHistoryPanel = new PurchaseHistoryPanel(start, end);
                     Main.cards.add(Main.purchaseHistoryPanel, "purchaseHistoryPanel");
                     Main.cardlayout.show(Main.cards, "purchaseHistoryPanel");
@@ -66,7 +68,8 @@ public class ReportPanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 try {
                     String start = JOptionPane.showInputDialog("Date to view excess from:");
-                    if (start == "") {start = "1/1/1000";}
+                    if (start == null) {return;}
+                    else if (start.length() < 1) {start = "1/1/1000";}
                     Main.excessReportPanel = new ExcessReportPanel(start);
                     Main.cards.add(Main.excessReportPanel, "excessReportPanel");
                     Main.cardlayout.show(Main.cards, "excessReportPanel");
@@ -80,9 +83,11 @@ public class ReportPanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 try{
                     String start = JOptionPane.showInputDialog("Start Date");
-                    if (start.equals("")) {start = "1/1/1000";}
+                    if (start == null) {return;}
+                    else if (start.length() < 1) {start = "1/1/1000";}
                     String end = JOptionPane.showInputDialog("End Date");
-                    if (end.equals("")) {end = "1/1/2500";}
+                    if (end == null) {return;}
+                    else if (end.length() < 1) {end = "1/1/2500";}
                     Main.pairsPanel = new PairsPanel(start, end);
                     Main.cards.add(Main.pairsPanel, "pairsPanel");
                     Main.cardlayout.show(Main.cards, "pairsPanel");

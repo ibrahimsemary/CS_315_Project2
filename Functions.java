@@ -167,7 +167,7 @@ public class Functions{
         ResultSet res = Database.executeQuery("SELECT MAX(id) FROM items;");
         res.next();
         int id = Integer.parseInt(res.getString("max")) +1;
-        Database.executeUpdate("INSERT INTO items VALUES ("+id+", '"+name+"', '"+type+"', "+cost+", 0, 'yes');");
+        Database.executeUpdate("INSERT INTO items VALUES ("+id+", '"+name+"', '"+type+"', "+cost+", 'yes');");
         return id;
     }
     

@@ -30,6 +30,7 @@ public class Functions{
     /**
      * @param cost              cost of the transaction
      * @param items             list of itemid for items purchased
+     * {@summary processes transactions by inputting transaction in table with next primary key + inputting all the item primary keys into the join table between items and transactions } 
      * @throws SQLException
      */
     static void processTransaction(double cost, ArrayList<Item> items) throws SQLException{
@@ -51,58 +52,6 @@ public class Functions{
 
     }
 
-    /**
-     * @param itemId            itemid of item being added
-     * @param expiryDate        date item will expire
-     * @param Quantity          number of items in shipment
-     * @throws SQLException
-     */
-    //expiry date should probably be changed to the date orderde or something
-    static void processBatches(int itemId, String expiryDate, int Quantity)throws SQLException{
-        //get the max batch id and add one to it - this is going to be the new primary key
-        //then do the query to put it in the DB
-        ResultSet res = Database.executeQuery("SELECT MAX(batchid) FROM batch;");
-        res.next();
-        int batchId = Integer.parseInt(res.getString("max")) + 1;
-        //Database.executeUpdate("INSERT INTO batch VALUES(" + batchId + "," + itemId + "," + expiryDate + "," + Quantity + ");");
-    }
-    /**
-     * @param username          username of user trying to log in
-     * @param password          password of user trying to log in
-     * @return boolean          returns if successful login
-     * @throws SQLException     
-     */
-    static boolean login(String username, String password) throws SQLException{
-        ResultSet res = Database.executeQuery("SELECT * FROM USERS;");
-        res.next();
-        while(res.next()){
-            String tempName = res.getString("name");
-            String tempPassword = res.getString("password");
-            String tempRole = res.getString("Role");
-            if(tempName.equals(username) && password.equals(tempPassword)&& tempRole.equals("manager")){
-                return true;
-                
-            }
-            res.next();
-        }
-        return false;
-    }
-
-    /**
-     * @deprecated
-     */
-
-    public static class Triplet<T1,T2,T3> {
-        public T1 first;
-        public T2 second;
-        public T3 third;
-
-        public Triplet(T1 t1, T2 t2, T3 t3){
-            this.first = t1;
-            this.second = t2;
-            this.third = t3;
-        }
-    }
 
     /**
      * @summary Holder class to store menu items retrieved from database
@@ -162,6 +111,7 @@ public class Functions{
      * @summary Retreives all items from the item table of database
      * @return List of Item objects
      * @throws SQLException
+     * @summary lists all items from the database
      */
     public static ArrayList<Item>getItems() throws SQLException{
        
@@ -202,6 +152,7 @@ public class Functions{
      * @param type
      * @param cost
      * @throws SQLException
+     * @summary adds a new item into DB in all the tables
      */
     public static int addItem(String name, String type, double cost) throws SQLException{
         ResultSet res = Database.executeQuery("SELECT MAX(id) FROM items;");
@@ -244,12 +195,20 @@ public class Functions{
      * @param name
      * @param newCost
      * @throws SQLException
+     * @summary updates the cost of an item
      */
 
     public static void updateItem(String name, double newCost) throws SQLException{
         Database.executeUpdate("UPDATE items SET cost = "+newCost+" WHERE name = '"+name +"';");
     }
 
+    /**
+     * @summary adds a batch into DB(batch table + updates inventory)
+     * @param name
+     * @param amt
+     * @param expDate
+     * @throws SQLException
+     */
     public static void addBatch(String name, int amt, String expDate) throws SQLException{
         ResultSet res = Database.executeQuery("SELECT MAX(batchid) FROM batch;");
         res.next();
@@ -259,50 +218,14 @@ public class Functions{
         int itemid = Integer.parseInt(res1.getString("itemid"));
         Database.executeUpdate("INSERT INTO batch VALUES ("+batchid+", '"+expDate+"', "+amt+", "+itemid+");");
     }
-
-
-
-
-
-
     /**
      * 
-     * @return
-     * @throws SQLException
+     * @param combo_name
+     * @param items
+     * @param totalCost
+     * @return double / returns a negative number if the combo is not added
+     * @summary returns cost after adding the combo
      */
-    public static ArrayList<Triplet<Integer, String, Double>>getEntrees() throws SQLException{
-       
-        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
-        ResultSet res = Database.executeQuery("SELECT * FROM items where type = 'entree';");
-        res.next();
-        while(res.next()){
-            Integer tempID= Integer.parseInt(res.getString("id"));
-            String tempName = res.getString("name");
-            Double tempCost = Double.parseDouble(res.getString("cost"));
-            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
-            items.add(temp);
-        }
-        return items;
-    }
-    /**
-     * 
-     * @return
-     * @throws SQLException
-     */
-    public static ArrayList<Triplet<Integer, String, Double>>getSides() throws SQLException{
-       
-        ArrayList<Triplet<Integer, String, Double>> items = new ArrayList<Triplet<Integer, String, Double>>();
-        ResultSet res = Database.executeQuery("SELECT * FROM items where type = 'side';");
-        res.next();
-        while(res.next()){
-            Integer tempID= Integer.parseInt(res.getString("id"));
-            String tempName = res.getString("name");
-            Double tempCost = Double.parseDouble(res.getString("cost"));
-            Triplet<Integer, String, Double> temp = new Triplet<Integer,String,Double>(tempID, tempName, tempCost);
-            items.add(temp);
-        }
-        return items;
-    }
     
     public static double processCombo(String combo_name, ArrayList<Item> items, double totalCost){
         int entrees = 0;
@@ -362,7 +285,14 @@ public class Functions{
         }
         return totalCost;
     }
-
+    /**
+     * 
+     * @param num_entrees
+     * @param num_sides
+     * @param items
+     * @return double
+     * {@summary} helps the combo function by getting the specific entrees and sides and subtracting their individual from the value to return in main function
+     */
     public static double comboHelper(int num_entrees, int num_sides, ArrayList<Item> items){
         //get num of entrees
         double to_return = 0;
@@ -381,7 +311,12 @@ public class Functions{
         }
         return to_return;
     }
-
+    /**
+     * 
+     * @param transactionid
+     * @throws SQLException
+     * @summary decrements inventory given a transaction id
+     */
     public static void decrementInventory(int transactionid) throws SQLException{
         //Database.executeUpdate("DROP VIEW view1 CASCADE;");
         Database.executeUpdate("CREATE OR REPLACE VIEW view1 AS SELECT transactionid, id, name FROM transactionitems NATURAL JOIN items WHERE transactionid ="+transactionid+";");
@@ -397,7 +332,14 @@ public class Functions{
             Database.executeUpdate(str);
         }
     }
-    
+    /**
+     * 
+     * @param startDate
+     * @param endDate
+     * @return ArrayList<Transaction>
+     * @throws SQLException
+     * @summary gets the transactions between 2 dates
+     */
     public static ArrayList<Transaction> getTransactions(String startDate, String endDate) throws SQLException{
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         String q = "SELECT * FROM transactions WHERE '"+ startDate +"' <= transactiondate AND transactiondate <= '"+ endDate +"' ORDER BY transactiondate DESC;";
@@ -412,7 +354,13 @@ public class Functions{
 
         return transactions;
     }
-
+    /**
+     * 
+     * @param fromDate
+     * @return ArrayList<ArrayList<String>>
+     * @throws SQLException
+     * @summary gets the top items sold from a specific date to current day
+     */
     public static ArrayList<ArrayList<String>> getTopItems(String fromDate) throws SQLException{
         ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
         String q1 = "CREATE OR REPLACE VIEW view11 AS SELECT indexid, transactionitems.transactionid, id FROM transactionitems LEFT JOIN transactions on transactionitems.transactionid = transactions.transactionid WHERE transactiondate >= '"+fromDate+"';";
@@ -428,7 +376,13 @@ public class Functions{
 
         return items;
     }
-
+    /**
+     * @summary gets top items between two dates
+     * @param startDate
+     * @param endDate
+     * @return ArrayList<ArrayList<String>>
+     * @throws SQLException
+     */
     public static ArrayList<ArrayList<String>> getTopItems(String startDate, String endDate) throws SQLException{
         ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
         String q1 = "CREATE OR REPLACE VIEW view11 AS SELECT indexid, transactionitems.transactionid, id FROM transactionitems LEFT JOIN transactions on transactionitems.transactionid = transactions.transactionid WHERE transactiondate >= '"+startDate+"' AND transactiondate <= '"+endDate+"';";
@@ -445,6 +399,13 @@ public class Functions{
         return items;
     }
 
+    /**
+     * check if the given username/password is true and that person is a manager
+     * @param username
+     * @param password
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean loginn(String username, String password) throws SQLException{
         ResultSet res = Database.executeQuery("SELECT * FROM USERS;");
         res.next();
@@ -462,6 +423,11 @@ public class Functions{
 
     }
 
+    /**
+     * @summary gives a list of all the current understocked ingredients
+     * @return ArrayList<InventoryItem>
+     * @throws SQLException
+     */
     public static ArrayList<InventoryItem> underStockedIngredients() throws SQLException{
         ArrayList<InventoryItem> to_return = new ArrayList<>();
         ResultSet res = Database.executeQuery("SELECT * FROM INVENTORY WHERE INVENTORY.TOTALQUANTITY < INVENTORY.MINIMUMAMOUNT;");
@@ -474,6 +440,12 @@ public class Functions{
         return to_return;
     }
 
+    /**
+     * @return gives a list of ingredients that sold less than 10% of inventory when inputting a certain date
+     * @param date
+     * @return ArrayList<excessIngredient>
+     * @throws SQLException
+     */
     static ArrayList<excessIngredient> excessReport(String date) throws SQLException{
         String q1 = "CREATE OR REPLACE VIEW view50 AS SELECT indexid, transactionitems.transactionid, id FROM transactionitems LEFT JOIN transactions on transactionitems.transactionid = transactions.transactionid WHERE transactiondate >= '"+date+"';";
         String q2 = "SELECT id, name, count(*) amountOrdered from view50 NATURAL JOIN items GROUP BY (id, name) ORDER BY amountOrdered DESC;";
@@ -521,6 +493,9 @@ public class Functions{
         return to_return;
     }
 
+    /**
+     * @summary class to hold the pairs that sell well with each other
+     */
     public static class pairCount implements Comparable<pairCount>{
 
         int first;
@@ -548,6 +523,7 @@ public class Functions{
      * @param endDate
      * @return pairs
      * @throws SQLException
+     * @summary gets pairs that sell well with each other from Descending order
      */
 
     public static ArrayList<ArrayList<String>> getPairs(String startDate, String endDate) throws SQLException{

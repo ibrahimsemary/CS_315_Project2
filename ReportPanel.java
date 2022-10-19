@@ -6,7 +6,11 @@ import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 import java.awt.event.*;
 import java.sql.*;
 
-
+/**
+ * @category Manager Side
+ * @summary Shows buttons to take user to sales report, excess report, restock report, and paired items
+ * @see {@link PurchaseHistoryPanel}, {@link ExcessReportPanel}, {@link RestockReportPanel} 
+ */
 public class ReportPanel extends JPanel{
     
     ReportPanel() {

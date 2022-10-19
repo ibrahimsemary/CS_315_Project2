@@ -4,6 +4,10 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
+/**
+ * @category Server and Manager Side
+ * @summary Creates the server and manager mode buttons at the top
+ */
 public class TopPanel extends JPanel{
 
     TopPanel() { 

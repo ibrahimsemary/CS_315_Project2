@@ -8,6 +8,20 @@ import java.awt.event.*;
 
 public class Functions{
 
+    public static class excessIngredient{
+        public Integer id;
+        public String name;
+        public Integer totalAmount;
+        public Integer amountSold;
+
+        public excessIngredient(Integer t1, String t2, Integer t3, Integer t4){
+            this.id = t1;
+            this.name = t2;
+            this.totalAmount= t3;
+            this.amountSold = t4;
+        }
+    }
+
     /**
      * @param cost              cost of the transaction
      * @param items             list of itemid for items purchased
@@ -419,6 +433,53 @@ public class Functions{
             Integer id = Integer.parseInt(res.getString("itemid"));
             String name = res.getString("itemname");
             to_return.add(new InventoryItem(id, name, quantity));
+        }
+        return to_return;
+    }
+
+    static ArrayList<excessIngredient> excessReport(String date) throws SQLException{
+        String q1 = "CREATE OR REPLACE VIEW view50 AS SELECT indexid, transactionitems.transactionid, id FROM transactionitems LEFT JOIN transactions on transactionitems.transactionid = transactions.transactionid WHERE transactiondate >= '"+date+"';";
+        String q2 = "SELECT id, name, count(*) amountOrdered from view50 NATURAL JOIN items GROUP BY (id, name) ORDER BY amountOrdered DESC;";
+        Database.executeUpdate(q1);
+        ResultSet res = Database.executeQuery(q2);
+
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<Integer> amounts = new ArrayList<>();
+
+        ArrayList<excessIngredient> to_return = new ArrayList<>();
+
+
+        while(res.next()){
+            String name = res.getString("name");
+            names.add(name);
+            int amountOrdered = Integer.parseInt(res.getString("amountordered"));
+            amounts.add(amountOrdered);
+        }
+        Map<String, Integer> myMap = new HashMap<>();
+        for(int i = 0; i < names.size(); i++){
+            res = Database.executeQuery("SELECT itemname FROM items NATURAL JOIN ingredientslist NATURAL JOIN inventory WHERE name = '" + names.get(i) + "';");
+            while(res.next()){
+                String ingredientName = res.getString("itemname");
+                if(myMap.containsKey(ingredientName)){
+                    myMap.put(ingredientName, myMap.get(ingredientName)+amounts.get(i));
+                }
+                else{
+                    myMap.put(ingredientName, amounts.get(i));
+                }
+            }
+        }
+
+        for(String name: myMap.keySet()){
+            res = Database.executeQuery("SELECT * FROM INVENTORY WHERE ITEMNAME = '" + name + "'");
+            res.next();
+            Integer quantity = Integer.parseInt(res.getString("totalQuantity"));
+            Integer tempId = Integer.parseInt(res.getString("itemid"));
+
+            Integer temp = myMap.get(name);
+            int total = quantity + temp;
+            if(total/ temp > 10){
+                to_return.add(new excessIngredient(tempId, name, total , temp));
+            }
         }
         return to_return;
     }

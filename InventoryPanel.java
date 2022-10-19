@@ -6,12 +6,19 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
+/**
+ * @category Manager Side
+ * @summary Creates a table containing all inventory item ids, names, and current amounts. Also contains
+ * function to update the quantity of an item.
+ */
 public class InventoryPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
     private static ArrayList<Functions.InventoryItem> inventoryItems;
 
-
+    /**
+     * @throws SQLException
+     */
     public InventoryPanel() throws SQLException {
         super(new GridBagLayout());
 

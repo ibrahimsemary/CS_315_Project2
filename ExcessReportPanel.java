@@ -19,12 +19,12 @@ import java.util.Date;
 public class ExcessReportPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
-    private static ArrayList<Functions.InventoryItem> underExcess;
+    private static ArrayList<Functions.excessIngredient> excessIng;
 
     /**
      * @throws SQLException
      */
-    public ExcessReportPanel() throws SQLException {
+    public ExcessReportPanel(String date) throws SQLException {
         super(new GridBagLayout());
 
         JButton jb = new JButton("GO BACK");
@@ -41,21 +41,23 @@ public class ExcessReportPanel extends JPanel  {
         
         String[] columnNames = {"id",
                                 "name",
-                                "quantity"};
+                                "quantity",
+                                "amount sold"};
 
         String[] newItem;
         
-        underExcess = Functions.underStockedIngredients();
+        excessIng = Functions.excessReport(date);
 
-        String[][] data = new String[underExcess.size()][3];
+        String[][] data = new String[excessIng.size()][4];
 
         int i = 0;
 
-        for (Functions.InventoryItem item : underExcess) {
-            newItem = new String[3];
+        for (Functions.excessIngredient item : excessIng) {
+            newItem = new String[4];
             newItem[0] = "" + item.id;
             newItem[1] = item.name;
-            newItem[2] = "" + item.quantity;
+            newItem[2] = "" + item.totalAmount;
+            newItem[3] = "" + item.amountSold;
 
             data[i] = newItem;
             i++;

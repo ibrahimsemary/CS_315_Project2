@@ -1,7 +1,8 @@
 import java.sql.*;
 import java.awt.*;
 import java.util.ArrayList; // import the ArrayList class
-
+import java.util.Map;
+import java.util.HashMap;
 import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 import java.awt.event.*;

@@ -38,6 +38,7 @@ public class ReportPanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 try{
                     String start = JOptionPane.showInputDialog("Start Date");
+                    if (start == "") {start = "1/1/1000";}
                     String end = JOptionPane.showInputDialog("End Date");
                     if (end == "") {end = "1/1/2500";}
                     Main.purchaseHistoryPanel = new PurchaseHistoryPanel(start, end);
@@ -58,6 +59,20 @@ public class ReportPanel extends JPanel{
                     System.out.println(x.getMessage());
                 }
 
+            }
+        });
+
+        excessReport.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String start = JOptionPane.showInputDialog("Date to view excess from:");
+                    if (start == "") {start = "1/1/1000";}
+                    Main.excessReportPanel = new ExcessReportPanel(start);
+                    Main.cards.add(Main.excessReportPanel, "excessReportPanel");
+                    Main.cardlayout.show(Main.cards, "excessReportPanel");
+                } catch (Exception x) {
+                    System.out.println(x.getMessage());
+                }
             }
         });
 

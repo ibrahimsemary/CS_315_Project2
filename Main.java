@@ -26,6 +26,7 @@ public class Main {
     static PurchaseHistoryPanel purchaseHistoryPanel;
     static ReportPanel reportPanel;
     static RestockReportPanel restockReportPanel;
+    static ExcessReportPanel excessReportPanel;
     public static void main(String args[]) {
         try {
             Database.connect();

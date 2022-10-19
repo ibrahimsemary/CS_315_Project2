@@ -26,12 +26,7 @@ public class Main {
     static PurchaseHistoryPanel purchaseHistoryPanel;
     static ReportPanel reportPanel;
     static RestockReportPanel restockReportPanel;
-<<<<<<< HEAD
-    static ExcessReportPanel excessReportPanel;
-    static PairsPanel pairsPanel;
-=======
     static LoginDOPE loginDope;
->>>>>>> 7ba640a (log in now works)
     public static void main(String args[]) {
         try {
             Database.connect();

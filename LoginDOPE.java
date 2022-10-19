@@ -3,6 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.*;
 
+/**
+* @category managerside
+* @summary login ability
+* 
+*/
+
 public class LoginDOPE extends JPanel{
 
 	private static JLabel password1, label;

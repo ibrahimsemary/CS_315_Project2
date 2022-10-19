@@ -62,18 +62,21 @@ public class Functions{
         public String name;
         public double cost;
         public String type;
+        public boolean onMenu;
 
-        public Item(int id, String name, double cost){
+        public Item(int id, String name, double cost, boolean onMenu){
             this.id = id;
             this.name = name;
             this.cost = cost;
+            this.onMenu = true;
         }
 
-        public Item(int id, String name, double cost, String type){
+        public Item(int id, String name, double cost, String type, boolean onMenu){
             this.id = id;
             this.name = name;
             this.cost = cost;
             this.type = type;
+            this.onMenu = onMenu;
         }
     }
 
@@ -116,13 +119,19 @@ public class Functions{
     public static ArrayList<Item>getItems() throws SQLException{
        
         ArrayList<Item> items = new ArrayList<Item>();
-        ResultSet res = Database.executeQuery("SELECT id,name,cost,type FROM items;");
+        ResultSet res = Database.executeQuery("SELECT id,name,cost,type,onmenu FROM items;");
         while(res.next()){
             Integer tempID= Integer.parseInt(res.getString("id"));
             String tempName = res.getString("name");
             Double tempCost = Double.parseDouble(res.getString("cost"));
             String type = res.getString("type");
-            Item temp = new Item(tempID, tempName, tempCost, type);
+            String onmenu = res.getString("onmenu");
+            boolean om;
+            if(onmenu.equals("yes"))
+                om = true;
+            else
+                om = false;
+            Item temp = new Item(tempID, tempName, tempCost, type, om);
             items.add(temp);
         }
         return items;
@@ -586,5 +595,9 @@ public class Functions{
         }
 
         return pairs;
+    }
+
+    public static void hideItem(String name) throws SQLException{
+        Database.executeUpdate("UPDATE items SET onmenu = 'no' WHERE name = '" + name + "';");
     }
 }

@@ -22,6 +22,9 @@ public class PairsPanel extends JPanel  {
     private static ArrayList<ArrayList<String>> pairs;
 
     /**
+     * 
+     * @param start Start date for pairs data
+     * @param end End date for pairs data
      * @throws SQLException
      */
     public PairsPanel(String start, String end) throws SQLException {

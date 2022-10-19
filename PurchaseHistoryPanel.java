@@ -12,11 +12,22 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.*;
 import java.util.Date;
 
+/**
+ * @category Manager Side
+ * @summary Creates panel to show purchase history between the passed dates. Includes
+ * a button to change the dates being shown.
+ */
 public class PurchaseHistoryPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
     private static ArrayList<ArrayList<String>> transactions;
 
+    /**
+     * 
+     * @param start Beginning date for purchase history
+     * @param end End date for purchase history
+     * @throws SQLException
+     */
     public PurchaseHistoryPanel(String start, String end) throws SQLException {
         super(new GridBagLayout());
 
@@ -74,6 +85,7 @@ public class PurchaseHistoryPanel extends JPanel  {
             final JTable table = new JTable(data, columnNames);
             table.setRowHeight(30);
             table.setPreferredScrollableViewportSize(table.getPreferredSize());
+
             //Create the scroll pane and add the table to it.
             JScrollPane scrollPane = new JScrollPane(table);
             scrollPane.setPreferredSize(new Dimension(500, 500));

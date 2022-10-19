@@ -9,7 +9,7 @@ import java.awt.event.*;
 /**
  * @category Manager Side
  * @summary Creates a table containing all inventory item ids, names, and current amounts. Also contains
- * function to update the quantity of an item.
+ * function to update the quantity of an item, insert a new item, or remove an item from the menu.
  */
 public class InventoryPanel extends JPanel  {    
     protected JTextArea textArea;

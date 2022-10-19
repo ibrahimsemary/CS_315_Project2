@@ -621,7 +621,11 @@ public class Functions{
         return pairs;
     }
 
-    public static void hideItem(String name) throws SQLException{
-        Database.executeUpdate("UPDATE items SET onmenu = 'no' WHERE name = '" + name + "';");
+    public static boolean hideItem(String name) throws SQLException{
+        int a = Database.executeUpdate("UPDATE items SET onmenu = 'no' WHERE name = '" + name + "';");
+        if( a > 0 ){
+            return true;
+        }
+        return false;
     }
 }

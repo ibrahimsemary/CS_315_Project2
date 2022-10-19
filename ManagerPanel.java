@@ -52,10 +52,51 @@ public class ManagerPanel extends JPanel{
             }
         });
 
+
+        JButton remove = new JButton("Remove Item");
+        remove.setPreferredSize(new Dimension(200,50));
+        remove.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                String item = JOptionPane.showInputDialog("Input name of item to remove");
+                String itemType = JOptionPane.showInputDialog("Input type of item to remove");
+                Boolean onMenu = Functions.hideItem(item);
+
+                if (!onMenu) {
+                    JOptionPane.showMessageDialog(null, "Item is not on menu");
+                    return;
+                }
+                if (!itemType.equals("entree") && !itemType.equals("side") && !itemType.equals("extra")) {
+                    JOptionPane.showMessageDialog(null, "Invalid type");
+                    return;
+                }
+                
+                ItemPanel xx = new ItemPanel(itemType);
+                    if (itemType.equals("entree")) {
+                        Main.entreePanel = xx;
+                        Main.cards.add(xx, "entreePanel");
+                    }
+                    else if (itemType.equals("side")) {
+                        Main.sidesPanel = xx;
+                        Main.cards.add(xx, "sidesPanel");
+                    }
+                    else if(itemType.equals("extra")){
+                        Main.extrasPanel = xx;
+                        Main.cards.add(xx, "extrasPanel");
+                    }
+
+                JOptionPane.showMessageDialog(null, "Item removed");
+                } catch (Exception x) {
+                    System.out.println(x.getMessage());
+                }
+            }
+        });
+
         add(inventory);
         add(menuItem);
         add(report);
         //add(analysis);
+        add(remove);
         
         
     }

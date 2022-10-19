@@ -17,6 +17,7 @@ public class ItemPanel extends JPanel{
         ArrayList<Functions.Item> items = Functions.getItems();
         for(Functions.Item my_item: items){
             if (!my_item.type.equals(item)) continue;
+            if (!my_item.onMenu) continue;
             JButton jb = new JButton(my_item.name);
             jb.setPreferredSize(new Dimension(200, 100));
             jb.addActionListener(new ActionListener(){

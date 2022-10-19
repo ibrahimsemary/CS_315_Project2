@@ -518,8 +518,8 @@ public class Functions{
         
         ResultSet res = Database.executeQuery("SELECT a.id id1, b.id id2 FROM view44 a JOIN view44 b on a.transactionid = b.transactionid WHERE a.id != b.id;");
         while(res.next()){
-            int id1 = Integer.parseInt(res.getString("id1"));
-            int id2 = Integer.parseInt(res.getString("id2"));
+            int id1 = Integer.parseInt(res.getString("id1")) / 2;
+            int id2 = Integer.parseInt(res.getString("id2")) / 2;
             if(id1 > id2){
                 counts[id2][id1]++;
             } else {

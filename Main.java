@@ -26,8 +26,12 @@ public class Main {
     static PurchaseHistoryPanel purchaseHistoryPanel;
     static ReportPanel reportPanel;
     static RestockReportPanel restockReportPanel;
+<<<<<<< HEAD
     static ExcessReportPanel excessReportPanel;
     static PairsPanel pairsPanel;
+=======
+    static LoginDOPE loginDope;
+>>>>>>> 7ba640a (log in now works)
     public static void main(String args[]) {
         try {
             Database.connect();
@@ -71,6 +75,7 @@ public class Main {
             inventoryPanel = new InventoryPanel();
             menuItemPanel = new MenuItemPanel();
             reportPanel = new ReportPanel();
+            loginDope = new LoginDOPE();
             //purchaseHistoryPanel = new PurchaseHistoryPanel();
             // cards.add(transactionPanel, "transactionPanel");
             cards.add(centralPanel, "centralPanel");
@@ -84,7 +89,7 @@ public class Main {
             cards.add(sidesPanel, "sidesPanel");
             cards.add(extrasPanel, "extrasPanel");
             cards.add(combosPanel, "combosPanel");
-
+            cards.add(loginDope, "loginDope");
             frame.add(transactionPanel, BorderLayout.EAST);
             frame.add(checkoutPanel, BorderLayout.SOUTH);
             frame.add(topPanel, BorderLayout.NORTH);

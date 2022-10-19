@@ -445,6 +445,23 @@ public class Functions{
         return items;
     }
 
+    public static boolean loginn(String username, String password) throws SQLException{
+        ResultSet res = Database.executeQuery("SELECT * FROM USERS;");
+        res.next();
+        while(res.next()){
+            String tempName = res.getString("name");
+            String tempPassword = res.getString("password");
+            String tempRole = res.getString("Role");
+            if(tempName.equals(username) && password.equals(tempPassword)&& tempRole.equals("manager")){
+                return true;
+                
+            }
+            res.next();
+        }
+        return false;
+
+    }
+
     public static ArrayList<InventoryItem> underStockedIngredients() throws SQLException{
         ArrayList<InventoryItem> to_return = new ArrayList<>();
         ResultSet res = Database.executeQuery("SELECT * FROM INVENTORY WHERE INVENTORY.TOTALQUANTITY < INVENTORY.MINIMUMAMOUNT;");

@@ -29,9 +29,11 @@ public class TopPanel extends JPanel{
         manager.setPreferredSize(new Dimension(200, 50));
         manager.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    Main.transactionPanel.setVisible(false);
-                    Main.checkoutPanel.setVisible(false);
-                    Main.cardlayout.show(Main.cards, "managerPanel");
+                    // 
+                    //LoginDOPE.loadlogin();
+                    Main.loginDope = new LoginDOPE();
+                    Main.cards.add(Main.loginDope, "loginDope");
+                    Main.cardlayout.show(Main.cards, "loginDope");
                 }
         });
 

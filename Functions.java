@@ -506,6 +506,14 @@ public class Functions{
         }
     }
 
+    /**
+     * 
+     * @param startDate
+     * @param endDate
+     * @return pairs
+     * @throws SQLException
+     */
+
     public static ArrayList<ArrayList<String>> getPairs(String startDate, String endDate) throws SQLException{
 
         ArrayList<ArrayList<String>> pairs = new ArrayList<ArrayList<String>>();

@@ -9,6 +9,10 @@ import java.awt.event.*;
 
 public class Functions{
 
+    /**
+     * @summary Holder class to make operations easy on the frotend for excess ingredients feature
+     */
+
     public static class excessIngredient{
         public Integer id;
         public String name;
@@ -84,6 +88,10 @@ public class Functions{
         return false;
     }
 
+    /**
+     * @deprecated
+     */
+
     public static class Triplet<T1,T2,T3> {
         public T1 first;
         public T2 second;
@@ -95,6 +103,10 @@ public class Functions{
             this.third = t3;
         }
     }
+
+    /**
+     * @summary Holder class to store menu items retrieved from database
+     */
 
     public static class Item{
         public int id;
@@ -116,6 +128,9 @@ public class Functions{
         }
     }
 
+    /**
+     * @summary Holder class to store inventory items retrieved from inventory
+     */
     public static class InventoryItem{
         public int id;
         public String name;
@@ -128,6 +143,9 @@ public class Functions{
         }
     }
 
+    /**
+     * @summary Holder class for transactions retrieved from database
+     */
     public static class Transaction{
         public int id;
         public String date;
@@ -141,7 +159,8 @@ public class Functions{
     }
 
     /**
-     * @return
+     * @summary Retreives all items from the item table of database
+     * @return List of Item objects
      * @throws SQLException
      */
     public static ArrayList<Item>getItems() throws SQLException{
@@ -160,8 +179,8 @@ public class Functions{
     }
 
     /**
-     * 
-     * @return
+     * @summary Retreives all items from the inventory table of database
+     * @return List of InventoryItem objects
      * @throws SQLException
      */
     public static ArrayList<InventoryItem>getInventoryItems() throws SQLException{
@@ -178,7 +197,7 @@ public class Functions{
     }
 
     /**
-     * 
+     * @return Id of created transaction
      * @param name
      * @param type
      * @param cost

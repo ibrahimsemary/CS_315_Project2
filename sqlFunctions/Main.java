@@ -19,6 +19,10 @@ public class Main{
         }
     }
 
+    
+
+    
+
     static void processTransaction(double cost, int[] items) throws SQLException{
         
         ResultSet res = Database.executeQuery("SELECT MAX(transactionid) FROM test_transaction;");
@@ -101,21 +105,22 @@ public class Main{
     }
     
     
-
+    
 
     public static void main(String[] args){
 
         int[] a = {1,2};
         try{
             Database.connect();
-            System.out.println(login("miketyson", "password"));
-            System.out.println(login("ibrahim", "haram"));
-            // password test
             // System.out.println(login("miketyson", "password"));
             // System.out.println(login("ibrahim", "haram"));
-            for(Triplet<Integer,String,Integer> trip: getInventory()){
-                System.out.println(trip.second);
-            }
+            // // password test
+            // // System.out.println(login("miketyson", "password"));
+            // // System.out.println(login("ibrahim", "haram"));
+            // for(Triplet<Integer,String,Integer> trip: getInventory()){
+            //     System.out.println(trip.second);
+            // }
+            excessReport("10-4-2022");
 
             Database.disconnect();
         } catch(SQLException e){

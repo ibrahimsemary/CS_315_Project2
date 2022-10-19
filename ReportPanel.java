@@ -76,6 +76,21 @@ public class ReportPanel extends JPanel{
             }
         });
 
+        popularPaired.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    String start = JOptionPane.showInputDialog("Start Date");
+                    if (start.equals("")) {start = "1/1/1000";}
+                    String end = JOptionPane.showInputDialog("End Date");
+                    if (end.equals("")) {end = "1/1/2500";}
+                    Main.pairsPanel = new PairsPanel(start, end);
+                    Main.cards.add(Main.pairsPanel, "pairsPanel");
+                    Main.cardlayout.show(Main.cards, "pairsPanel");
+                }
+                catch(Exception x) {System.out.println(x.getMessage());}
+            }
+        });
+
         add(salesReport);
         add(excessReport);
         add(restockReport);

@@ -5,8 +5,12 @@ import javax.swing.border.LineBorder;
 import java.awt.event.*;
 import java.sql.SQLException;
 
+/**
+ * @category Server Side
+ * @summary Creates the central panel to take orders from the customers
+ */
 public class CentralPanel extends JPanel{
-    
+
     CentralPanel() {
 
         JButton entree = new JButton("Entrees"); // entree

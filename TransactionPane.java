@@ -6,6 +6,10 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
+/**
+ * @category Server Side
+ * @summary Creates Transaction Pane
+ */
 public class TransactionPane extends JPanel{
     public static ArrayList<Functions.Item> itemIds;
     public double cost;
@@ -28,12 +32,19 @@ public class TransactionPane extends JPanel{
         add(title, 0);
     }
 
+    /**
+     * @summary Displays an item on transaction pane
+     * @param name Name of item to display
+     */
     public void display(String name) {
         JLabel itemDisplay = new JLabel(name);
         itemDisplay.setFont(new Font(itemDisplay.getFont().getName(), itemDisplay.getFont().getStyle(), 15));
         add(itemDisplay);
     }
 
+    /**
+     * @summary Clears the transaction pane
+     */
     public static void clear() {
         TransactionPane newPane = new TransactionPane();
         Main.frame.remove(Main.transactionPanel);
@@ -42,6 +53,11 @@ public class TransactionPane extends JPanel{
         Main.frame.revalidate();
         itemIds.clear();
     }
+
+    /**
+     * @summary Completes the transaction and updates inventory
+     * @throws SQLException
+     */
 
     public static void checkout() throws SQLException {
         Functions.processTransaction(Main.transactionPanel.cost, itemIds);

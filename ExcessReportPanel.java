@@ -14,9 +14,9 @@ import java.util.Date;
 
 /**
  * @category ManagerSide
- * @summary Creates a table of all items below their minimum required amount for a day of operation
+ * @summary Creates table showing all items that sold less than 10% of their stock over a given timeframe
  */
-public class RestockReportPanel extends JPanel  {    
+public class ExcessReportPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
     private static ArrayList<Functions.InventoryItem> underExcess;
@@ -24,7 +24,7 @@ public class RestockReportPanel extends JPanel  {
     /**
      * @throws SQLException
      */
-    public RestockReportPanel() throws SQLException {
+    public ExcessReportPanel() throws SQLException {
         super(new GridBagLayout());
 
         JButton jb = new JButton("GO BACK");

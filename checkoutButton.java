@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+/**
+ * @category Server Side
+ * @summary Creates the checkout and clear buttons 
+ */
 public class checkoutButton extends JPanel{
     
     checkoutButton() throws SQLException {

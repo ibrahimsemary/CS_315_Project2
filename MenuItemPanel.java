@@ -9,11 +9,18 @@ import javax.swing.table.TableColumnModel;
 
 import java.awt.event.*;
 
+/**
+ * Creates table to show user all items currently on the menu and their cost.
+ * Also creates buttons to allow user to add a new item or update an existing item.
+ */
 public class MenuItemPanel extends JPanel  {    
     protected JTextArea textArea;
     private final static String newline = "\n";
     private static ArrayList<Functions.Item> menuItems;
 
+    /**
+     * @throws SQLException
+     */
     public MenuItemPanel() throws SQLException {
         super(new GridBagLayout());
 

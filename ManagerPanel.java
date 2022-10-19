@@ -55,7 +55,7 @@ public class ManagerPanel extends JPanel{
         add(inventory);
         add(menuItem);
         add(report);
-        add(analysis);
+        //add(analysis);
         
         
     }

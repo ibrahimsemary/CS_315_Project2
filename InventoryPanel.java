@@ -28,7 +28,7 @@ public class InventoryPanel extends JPanel  {
             public void actionPerformed(ActionEvent e) {
                 try{
                     String itemName =  JOptionPane.showInputDialog("Ingredient name:");
-                    String itemType = JOptionPane.showInputDialog("expDate");
+                    String itemType = "1-1-1111";//JOptionPane.showInputDialog("expDate");
                     String itemCost = JOptionPane.showInputDialog("Amount");
                     Integer xx = Integer.parseInt(itemCost);
 
